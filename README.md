@@ -2,6 +2,8 @@
 
 A curated list of skills & commands which stays low on tokens. Each skill is distilled to the non-obvious knowledge — what a senior engineer would want surfaced, not what a reference manual would say — so Claude spends its context budget on your problem, not on rehashing fundamentals.
 
+> Your agent already knows basic things, let's make it more senior.
+
 ## Quick start
 
 Install skills quickly via NPX:
@@ -36,6 +38,7 @@ https://github.com/narenaryan/agent-skills
 | Category        | Skills | Commands | Description                            |
 |-----------------|--------|----------|----------------------------------------|
 | [git](skills/git/)                     | 10 | 0 | Advanced git workflows                 |
+| [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
 | [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
 
 ## Installer options
