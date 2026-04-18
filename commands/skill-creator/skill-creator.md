@@ -48,7 +48,7 @@ Drop: definitions, hello-world, "what is X", install steps, marketing text, anyt
 
 ## Skill file template
 
-```markdown
+````markdown
 ---
 name: <lowercase-hyphen-name>
 description: Use when <specific triggering conditions and symptoms — NOT a summary of what the skill does>
@@ -72,7 +72,7 @@ description: Use when <specific triggering conditions and symptoms — NOT a sum
 
 - <sharp edge with concrete consequence>
 - <second sharp edge>
-```
+````
 
 ### Frontmatter rules
 
