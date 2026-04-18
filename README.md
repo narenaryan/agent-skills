@@ -14,6 +14,15 @@ cd agent-skills
 
 Installed items land under `~/.claude/skills/` and `~/.claude/commands/`, where Claude Code discovers them.
 
+## Agent install
+
+Copy this into an agent chat to install these skills:
+
+```markdown
+Install skills from this Git repository:
+https://github.com/narenaryan/agent-skills
+```
+
 ## Categories
 
 | Category        | Skills | Commands | Description                            |
