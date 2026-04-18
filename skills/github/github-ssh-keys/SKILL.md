@@ -1,6 +1,6 @@
 ---
 name: github-ssh-keys
-description: Use when setting up, troubleshooting, or hardening SSH keys for GitHub — FIDO2/U2F hardware keys (ed25519-sk/ecdsa-sk), macOS Keychain integration (UseKeychain, --apple-use-keychain), Windows MSYS2-vs-native-OpenSSH agent confusion, "Bad configuration option: usekeychain" errors, or choosing between ed25519 and rsa-4096
+description: 'Use when setting up, troubleshooting, or hardening SSH keys for GitHub — FIDO2/U2F hardware keys (ed25519-sk/ecdsa-sk), macOS Keychain integration (UseKeychain, --apple-use-keychain), Windows MSYS2-vs-native-OpenSSH agent confusion, "Bad configuration option: usekeychain" errors, or choosing between ed25519 and rsa-4096'
 ---
 
 # GitHub SSH Keys
