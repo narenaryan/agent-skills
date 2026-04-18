@@ -4,6 +4,14 @@ A curated list of skills & commands which stays low on tokens. Each skill is dis
 
 ## Quick start
 
+Install skills quickly via NPX:
+
+```bash
+npx skills add narenaryan/agent-skills -y
+```
+
+Or install specific skills:
+
 ```bash
 git clone https://github.com/N3N/agent-skills.git
 cd agent-skills
