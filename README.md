@@ -18,6 +18,7 @@ Or install specific skills:
 git clone https://github.com/N3N/agent-skills.git
 cd agent-skills
 ./install.sh git                 # install all git skills
+./install.sh python              # install all python skills
 ./install.sh git-hooks           # or just one skill
 ./install.sh --all               # or everything
 ```
@@ -39,6 +40,7 @@ https://github.com/narenaryan/agent-skills
 |-----------------|--------|----------|----------------------------------------|
 | [git](skills/git/)                     | 10 | 0 | Advanced git workflows                 |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
+| [python](skills/python/)               | 3  | 0 | Advanced Python runtime semantics      |
 | [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
 
 ## Installer options
