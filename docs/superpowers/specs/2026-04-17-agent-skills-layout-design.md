@@ -95,6 +95,15 @@ For a bare positional arg `foo`, in order:
 If step 2 or 3 is ambiguous (same name in two categories) the script errors and
 asks the user to disambiguate with the category prefix (`git/foo`).
 
+A category install where `skills/foo/` contains no `*/SKILL.md` children (the
+`skill-creator` placeholder case) is valid: it simply installs zero skills and
+falls through to installing any commands under `commands/foo/`.
+
+`--all` and positional targets are mutually exclusive — if both are given, the
+script exits with a usage error. Passing the same item twice (e.g. `./install.sh
+git git-hooks`) is allowed; the second occurrence hits the conflict path and is
+skipped unless `--force` is set.
+
 ### Install targets on disk
 
 - Skills → `~/.claude/skills/<skill-name>/` (directory copied/linked flat)
@@ -116,6 +125,8 @@ Per item, checked independently:
 - **Copy (default)**: `cp -R` for skill directories; `cp` for command files.
 - **`--link`**: `ln -s <absolute-repo-path> <target>`. Absolute paths ensure
   the link still resolves if the user's shell cwd changes.
+- **`--force` + `--link`**: remove the existing target (subject to the safety
+  rail below) and create the symlink.
 
 ### Safety rails
 
