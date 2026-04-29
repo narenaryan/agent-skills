@@ -44,7 +44,7 @@ https://github.com/narenaryan/agent-skills
 | [github](skills/github/)               | 1  | 0 | GitHub operational workflows           |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
 | [python](skills/python/)               | 3  | 0 | Advanced Python runtime semantics      |
-| [rust](skills/rust/)                   | 1  | 0 | Runtime bug classes and safety edges   |
+| [rust](skills/rust/)                   | 2  | 0 | Compile-time invariants and runtime safety |
 | [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
 
 ## Installer options
