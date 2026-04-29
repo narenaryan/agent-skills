@@ -19,6 +19,7 @@ git clone https://github.com/N3N/agent-skills.git
 cd agent-skills
 ./install.sh git                 # install all git skills
 ./install.sh python              # install all python skills
+./install.sh rust                # install all rust skills
 ./install.sh github              # install all github skills
 ./install.sh git-hooks           # or just one skill
 ./install.sh --all               # or everything
@@ -43,6 +44,7 @@ https://github.com/narenaryan/agent-skills
 | [github](skills/github/)               | 1  | 0 | GitHub operational workflows           |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
 | [python](skills/python/)               | 3  | 0 | Advanced Python runtime semantics      |
+| [rust](skills/rust/)                   | 1  | 0 | Runtime bug classes and safety edges   |
 | [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
 
 ## Installer options
