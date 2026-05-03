@@ -4,6 +4,7 @@ Advanced git workflows distilled into small, focused skills. Each one targets a 
 
 ## Skills
 
+- **[conventional-commits](conventional-commits/SKILL.md)** — writing or validating Conventional Commits v1.0.0 messages. Covers `!` vs `BREAKING CHANGE:`, git-trailer footer syntax, scope rules, SemVer mapping, and optional gitmoji-style prefixes that still preserve the textual commit type for tooling.
 - **[git-advanced-merging](git-advanced-merging/SKILL.md)** — resolving non-trivial merge conflicts, choosing a merge strategy, or undoing a merge. Covers `-X` options, diff3 markers, strategy vs option, `reset` vs `revert -m`, and re-merging reverted branches.
 - **[git-bisect-forensics](git-bisect-forensics/SKILL.md)** — hunting a regression across many commits or tracing the origin of a line/function/string. Covers automated bisect, skip, replay, `blame -L/-C/-w`, and pickaxe search (`-S/-G`).
 - **[git-data-recovery](git-data-recovery/SKILL.md)** — recovering commits or branches that seem lost after hard reset, force-push, branch delete, or botched rebase. Locate dangling objects via reflog and fsck before gc prunes them.
@@ -19,5 +20,6 @@ Advanced git workflows distilled into small, focused skills. Each one targets a 
 
 ```bash
 ./install.sh git                 # install all
+./install.sh conventional-commits # install one
 ./install.sh git-hooks           # install one
 ```

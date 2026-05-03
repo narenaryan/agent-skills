@@ -21,6 +21,7 @@ cd agent-skills
 ./install.sh python              # install all python skills
 ./install.sh rust                # install all rust skills
 ./install.sh github              # install all github skills
+./install.sh conventional-commits # or just one skill
 ./install.sh git-hooks           # or just one skill
 ./install.sh --all               # or everything
 ```
@@ -40,7 +41,7 @@ https://github.com/narenaryan/agent-skills
 
 | Category        | Skills | Commands | Description                            |
 |-----------------|--------|----------|----------------------------------------|
-| [git](skills/git/)                     | 10 | 0 | Advanced git workflows                 |
+| [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
 | [github](skills/github/)               | 1  | 0 | GitHub operational workflows           |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
 | [python](skills/python/)               | 3  | 0 | Advanced Python runtime semantics      |
