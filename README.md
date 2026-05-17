@@ -18,10 +18,12 @@ Or install specific skills:
 git clone https://github.com/N3N/agent-skills.git
 cd agent-skills
 ./install.sh git                 # install all git skills
+./install.sh engineering         # install all engineering skills
 ./install.sh python              # install all python skills
 ./install.sh rust                # install all rust skills
 ./install.sh github              # install all github skills
 ./install.sh conventional-commits # or just one skill
+./install.sh minimal-sufficient-evidence # or just one skill
 ./install.sh git-hooks           # or just one skill
 ./install.sh --all               # or everything
 ```
@@ -41,6 +43,7 @@ https://github.com/narenaryan/agent-skills
 
 | Category        | Skills | Commands | Description                            |
 |-----------------|--------|----------|----------------------------------------|
+| [engineering](skills/engineering/)       | 1  | 0 | Minimal evidence for tests, debugging, metrics, docs, models, and root cause |
 | [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
 | [github](skills/github/)               | 1  | 0 | GitHub operational workflows           |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
