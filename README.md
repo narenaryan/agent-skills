@@ -22,9 +22,11 @@ cd agent-skills
 ./install.sh python              # install all python skills
 ./install.sh rust                # install all rust skills
 ./install.sh github              # install all github skills
+./install.sh ui                  # install all UI skills
 ./install.sh conventional-commits # or just one skill
 ./install.sh minimal-sufficient-evidence # or just one skill
 ./install.sh git-hooks           # or just one skill
+./install.sh ui-form-design      # or just one skill
 ./install.sh --all               # or everything
 ```
 
@@ -49,6 +51,7 @@ https://github.com/narenaryan/agent-skills
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
 | [python](skills/python/)               | 3  | 0 | Advanced Python runtime semantics      |
 | [rust](skills/rust/)                   | 2  | 0 | Compile-time invariants and runtime safety |
+| [ui](skills/ui/)                       | 2  | 0 | UI flows, navigation, forms, validation, and interaction patterns |
 | [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
 
 ## Installer options
