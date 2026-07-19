@@ -6,6 +6,7 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 - **[minimal-sufficient-evidence](minimal-sufficient-evidence/SKILL.md)** - remove redundant tests and artifacts while preserving the smallest evidence set needed for debugging, regression coverage, metrics, templates, models, and root-cause analysis.
 - **[macos-disk-space-recovery](macos-disk-space-recovery/SKILL.md)** - diagnose low disk space on macOS with APFS-aware measurement, rank real offenders, and remove caches or app data safely while reporting reclaimed space.
+- **[modularize-large-files](modularize-large-files/SKILL.md)** - find files past ~2k lines and split god modules along cohesion seams, preserving the public API with re-exports and verifying tests between each behavior-preserving extraction.
 
 ## Install
 
@@ -13,4 +14,5 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 ./install.sh engineering                  # install all
 ./install.sh minimal-sufficient-evidence  # install one
 ./install.sh macos-disk-space-recovery    # install one
+./install.sh modularize-large-files       # install one
 ```

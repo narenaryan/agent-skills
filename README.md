@@ -45,7 +45,7 @@ https://github.com/narenaryan/agent-skills
 
 | Category        | Skills | Commands | Description                            |
 |-----------------|--------|----------|----------------------------------------|
-| [engineering](skills/engineering/)       | 2  | 0 | Minimal evidence for tests, debugging, metrics, docs, root cause, and macOS disk recovery |
+| [engineering](skills/engineering/)       | 3  | 0 | Minimal evidence for tests, debugging, metrics, docs, root cause, macOS disk recovery, and splitting large files into modules |
 | [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
 | [github](skills/github/)               | 1  | 0 | GitHub operational workflows           |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
