@@ -19,6 +19,7 @@ git clone https://github.com/N3N/agent-skills.git
 cd agent-skills
 ./install.sh git                 # install all git skills
 ./install.sh engineering         # install all engineering skills
+./install.sh security            # install all security skills
 ./install.sh python              # install all python skills
 ./install.sh rust                # install all rust skills
 ./install.sh github              # install all github skills
@@ -46,7 +47,8 @@ https://github.com/narenaryan/agent-skills
 
 | Category        | Skills | Commands | Description                            |
 |-----------------|--------|----------|----------------------------------------|
-| [engineering](skills/engineering/)       | 5  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, container image patching, and splitting large files into modules |
+| [engineering](skills/engineering/)       | 4  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, and splitting large files into modules |
+| [security](skills/security/)           | 1  | 0 | Container image vulnerability scanning, targeted patching, and verification |
 | [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
 | [github](skills/github/)               | 1  | 0 | GitHub operational workflows           |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
