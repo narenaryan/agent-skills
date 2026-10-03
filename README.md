@@ -25,6 +25,7 @@ cd agent-skills
 ./install.sh ui                  # install all UI skills
 ./install.sh conventional-commits # or just one skill
 ./install.sh minimal-sufficient-evidence # or just one skill
+./install.sh container-image-patching     # or just one skill
 ./install.sh git-hooks           # or just one skill
 ./install.sh ui-form-design      # or just one skill
 ./install.sh --all               # or everything
@@ -45,7 +46,7 @@ https://github.com/narenaryan/agent-skills
 
 | Category        | Skills | Commands | Description                            |
 |-----------------|--------|----------|----------------------------------------|
-| [engineering](skills/engineering/)       | 4  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, and splitting large files into modules |
+| [engineering](skills/engineering/)       | 5  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, container image patching, and splitting large files into modules |
 | [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
 | [github](skills/github/)               | 1  | 0 | GitHub operational workflows           |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
