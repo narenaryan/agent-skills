@@ -50,12 +50,18 @@ https://github.com/narenaryan/agent-skills
 | [engineering](skills/engineering/)       | 4  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, and splitting large files into modules |
 | [security](skills/security/)           | 1  | 0 | Container image vulnerability scanning, targeted patching, and verification |
 | [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
-| [github](skills/github/)               | 1  | 0 | GitHub operational workflows           |
+| [github](skills/github/)               | 2  | 0 | GitHub operational workflows and npm publishing |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
-| [python](skills/python/)               | 3  | 0 | Advanced Python runtime semantics      |
-| [rust](skills/rust/)                   | 2  | 0 | Compile-time invariants and runtime safety |
+| [python](skills/python/)               | 4  | 0 | Advanced Python runtime semantics and scaling regression tests |
+| [rust](skills/rust/)                   | 3  | 0 | Compile-time invariants, runtime safety, and deterministic concurrency tests |
 | [ui](skills/ui/)                       | 3  | 0 | UI flows, navigation, forms, validation, scroll regions, and interaction patterns |
 | [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
+
+## Engineering blog sources
+
+[The source registry](sources/engineering-blogs.json) records 15 selected engineering blogs, Hacker News discovery links, feed verification status, editorial filters, and historical example articles. The examples establish source quality; they are not announcements of newly published content. Two examples link to the initial proposed skills.
+
+Before converting another article, inspect existing skills and open pull requests for overlap, read the original source, and verify version-sensitive claims. Use the [skill-creator command](commands/skill-creator/skill-creator.md) with repository paths under `skills/`; publication through a pull request does not install skills locally.
 
 ## Installer options
 
