@@ -1,0 +1,348 @@
+{
+  "schema_version": 1,
+  "baseline_date": "2026-10-04",
+  "description": "Curated engineering blogs discovered through Hacker News. Historical example articles establish source quality; they are not newly published findings.",
+  "feed_status_definitions": {
+    "verified_xml": "HTTP 200 and XML payload parsed during baseline verification.",
+    "http_403_index_fallback": "Direct feed fetch returned HTTP 403; use the verified public article index."
+  },
+  "selection_rules": [
+    "Read the complete original article before extracting advanced, reusable knowledge; skip basic, promotional, speculative, or project-specific content.",
+    "Check all existing skills and open pull requests for overlapping techniques and source URLs before proposing changes.",
+    "Follow commands/skill-creator/skill-creator.md, targeting repository skills directories rather than installing on the host.",
+    "Record canonical article URLs and actual publication/update dates; do not describe baseline/backfill material as newly published.",
+    "Cross-check version-sensitive claims with primary documentation, write original concise synthesis, and disclose unexecuted validation."
+  ],
+  "sources": [
+    {
+      "id": "haki-benita",
+      "name": "Haki Benita",
+      "index_url": "https://hakibenita.com/",
+      "feed_url": "https://hakibenita.com/feeds/all.atom.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "postgresql",
+        "django",
+        "database-performance"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=44570089",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Inspect implicit indexes and lock modes; skip unsupported production schema changes.",
+      "baseline_article": {
+        "url": "https://hakibenita.com/django-foreign-keys",
+        "published": "2025-07-15",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "death-and-gravity",
+      "name": "death and gravity",
+      "index_url": "https://death.andgravity.com/",
+      "feed_url": "https://death.andgravity.com/_feed/index.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "python",
+        "concurrency",
+        "performance"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=30245247",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Benchmark mixed I/O/CPU saturation; validate executor failure propagation and runtime-version assumptions.",
+      "baseline_article": {
+        "url": "https://death.andgravity.com/ptpe",
+        "published": "2025-04",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "python-speed",
+      "name": "Python⇒Speed",
+      "index_url": "https://pythonspeed.com/",
+      "feed_url": "https://pythonspeed.com/atom.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "python",
+        "performance",
+        "packaging"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=34974480",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Prefer measured, reusable performance techniques; verify current upstream APIs.",
+      "baseline_article": {
+        "url": "https://pythonspeed.com/articles/big-o-tests/",
+        "published": "2026-01-07",
+        "updated": "2026-01-07",
+        "disposition": "skill_proposed_in_this_batch",
+        "skill_path": "skills/python/python-scaling-regression-tests/SKILL.md"
+      }
+    },
+    {
+      "id": "hynek",
+      "name": "Hynek Schlawack",
+      "index_url": "https://hynek.me/articles/",
+      "feed_url": "https://hynek.me/index.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "python",
+        "packaging",
+        "containers"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=26314620",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Low-volume source; inspect substantive updates to technical articles as well as new entries.",
+      "baseline_article": {
+        "url": "https://hynek.me/articles/docker-uv/",
+        "published": "2024-08-28",
+        "updated": "2026-08-06",
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "julia-evans",
+      "name": "Julia Evans",
+      "index_url": "https://jvns.ca/",
+      "feed_url": "https://jvns.ca/atom.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "debugging",
+        "linux",
+        "networking"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=32651454",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Select concrete debugging techniques; skip personal posts and promotion.",
+      "baseline_article": {
+        "url": "https://jvns.ca/blog/2021/11/17/debugging-a-weird--file-not-found--error/",
+        "published": "2021-11-17",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "eli-bendersky",
+      "name": "Eli Bendersky",
+      "index_url": "https://eli.thegreenplace.net/",
+      "feed_url": "https://eli.thegreenplace.net/feeds/all.atom.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "python",
+        "go",
+        "compilers"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=37898999",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Feed exposes only a short recent window; use the index/archive for recovery and backfill.",
+      "baseline_article": {
+        "url": "https://eli.thegreenplace.net/2026/plugins-case-study-pluggy/",
+        "published": "2026-06-13",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "ned-batchelder",
+      "name": "Ned Batchelder",
+      "index_url": "https://nedbatchelder.com/blog/",
+      "feed_url": "https://nedbatchelder.com/blog/rss.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "python",
+        "testing",
+        "coverage"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=20607521",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Favor tested debugging/coverage techniques; label experiments and unreleased APIs explicitly.",
+      "baseline_article": {
+        "url": "https://nedbatchelder.com/blog/202311/debug_helpers_in_coveragepy",
+        "published": "2023-11-12",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "matklad",
+      "name": "matklad",
+      "index_url": "https://matklad.github.io/",
+      "feed_url": "https://matklad.github.io/feed.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "rust",
+        "testing",
+        "software-design"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=40890035",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Separate illustrative toy implementations from production tool recommendations.",
+      "baseline_article": {
+        "url": "https://matklad.github.io/2024/07/05/properly-testing-concurrent-data-structures.html",
+        "published": "2024-07-05",
+        "updated": null,
+        "disposition": "skill_proposed_in_this_batch",
+        "skill_path": "skills/rust/rust-deterministic-concurrency-tests/SKILL.md"
+      }
+    },
+    {
+      "id": "fasterthanlime",
+      "name": "fasterthanli.me",
+      "index_url": "https://fasterthanli.me/",
+      "feed_url": "https://fasterthanli.me/index.xml",
+      "feed_status": "http_403_index_fallback",
+      "topics": [
+        "rust",
+        "networking",
+        "systems"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=33280605",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Long-form educational code may be incomplete; cross-check current libraries and protocol specifications.",
+      "baseline_article": {
+        "url": "https://fasterthanli.me/articles/the-http-crash-course-nobody-asked-for",
+        "published": "2022-10-20",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "ralfj",
+      "name": "Ralf's Ramblings",
+      "index_url": "https://www.ralfj.de/blog/",
+      "feed_url": "https://www.ralfj.de/blog/feed.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "rust",
+        "unsafe-code",
+        "verification"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=46360478",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Distinguish stable language guarantees from Miri flags, experimental aliasing models, and tool limits.",
+      "baseline_article": {
+        "url": "https://www.ralfj.de/blog/2025/12/22/miri.html",
+        "published": "2025-12-22",
+        "updated": "2026-02-04",
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "daniel-lemire",
+      "name": "Daniel Lemire",
+      "index_url": "https://lemire.me/blog/",
+      "feed_url": "https://lemire.me/blog/feed/",
+      "feed_status": "http_403_index_fallback",
+      "topics": [
+        "performance",
+        "simd",
+        "algorithms"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=16171806",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Verify correctness against a scalar reference; benchmark on target hardware rather than carrying old speedup claims.",
+      "baseline_article": {
+        "url": "https://lemire.me/blog/2018/01/17/ridiculously-fast-base64-encoding-and-decoding/",
+        "published": "2018-01-17",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "tigerbeetle",
+      "name": "TigerBeetle",
+      "index_url": "https://tigerbeetle.com/blog/",
+      "feed_url": "https://tigerbeetle.com/blog/atom.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "distributed-systems",
+        "simulation-testing",
+        "storage"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=36627800",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Extract bounded safety/liveness test techniques; skip product announcements without reusable methods.",
+      "baseline_article": {
+        "url": "https://tigerbeetle.com/blog/2023-07-06-simulation-testing-for-liveness/",
+        "published": "2023-07-06",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "trail-of-bits",
+      "name": "Trail of Bits",
+      "index_url": "https://blog.trailofbits.com/",
+      "feed_url": "https://blog.trailofbits.com/feed/",
+      "feed_status": "http_403_index_fallback",
+      "topics": [
+        "security",
+        "testing",
+        "sanitizers"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=40384515",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Select defensive implementation techniques with reproducible validation.",
+      "baseline_article": {
+        "url": "https://blog.trailofbits.com/2024/05/16/understanding-addresssanitizer-better-memory-safety-for-your-code/",
+        "published": "2024-05-16",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "cloudflare",
+      "name": "Cloudflare Engineering",
+      "index_url": "https://blog.cloudflare.com/",
+      "feed_url": "https://blog.cloudflare.com/rss/",
+      "feed_status": "http_403_index_fallback",
+      "topics": [
+        "networking",
+        "rust",
+        "reliability"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=32836661",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Filter marketing and launch news; retain engineering details with generalizable constraints and measurements.",
+      "baseline_article": {
+        "url": "https://blog.cloudflare.com/how-we-built-pingora-the-proxy-that-connects-cloudflare-to-the-internet/",
+        "published": "2022-09-14",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    },
+    {
+      "id": "brendan-gregg",
+      "name": "Brendan Gregg",
+      "index_url": "https://www.brendangregg.com/blog/",
+      "feed_url": "https://www.brendangregg.com/blog/rss.xml",
+      "feed_status": "verified_xml",
+      "topics": [
+        "linux",
+        "profiling",
+        "performance"
+      ],
+      "hn_discovery_url": "https://news.ycombinator.com/item?id=39731824",
+      "last_verified": "2026-10-04",
+      "editorial_filter": "Low-volume technical source; validate stack completeness and profiling overhead before interpreting results.",
+      "baseline_article": {
+        "url": "https://www.brendangregg.com/blog/2024-03-17/the-return-of-the-frame-pointers.html",
+        "published": "2024-03-17",
+        "updated": null,
+        "disposition": "quality_example_only",
+        "skill_path": null
+      }
+    }
+  ]
+}
