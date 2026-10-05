@@ -53,6 +53,7 @@ https://github.com/narenaryan/agent-skills
 | [github](skills/github/)               | 2  | 0 | GitHub operational workflows and npm publishing |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
 | [python](skills/python/)               | 4  | 0 | Advanced Python runtime semantics and scaling regression tests |
+| [sales](skills/sales/)                 | 3  | 0 | B2B qualification, buyer-owned decision plans, and controlled commercial negotiation |
 | [rust](skills/rust/)                   | 3  | 0 | Compile-time invariants, runtime safety, and deterministic concurrency tests |
 | [ui](skills/ui/)                       | 3  | 0 | UI flows, navigation, forms, validation, scroll regions, and interaction patterns |
 | [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
