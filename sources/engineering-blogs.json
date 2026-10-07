@@ -34,7 +34,15 @@
         "updated": null,
         "disposition": "quality_example_only",
         "skill_path": null
-      }
+      },
+      "derived_articles": [
+        {
+          "url": "https://hakibenita.com/postgres-row-lock-with-join",
+          "published": "2026-02-24",
+          "reviewed": "2026-10-07",
+          "skill_path": "skills/database/postgres-locking-joins/SKILL.md"
+        }
+      ]
     },
     {
       "id": "death-and-gravity",
