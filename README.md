@@ -49,7 +49,7 @@ https://github.com/narenaryan/agent-skills
 |-----------------|--------|----------|----------------------------------------|
 | [database](skills/database/)           | 1  | 0 | PostgreSQL locking joins, statement snapshots, and concurrency-safe reads |
 | [marketing](skills/marketing/)         | 3  | 0 | Evidence-led positioning, causal campaign measurement, and cohort-aware funnel diagnosis |
-| [engineering](skills/engineering/)       | 4  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, and splitting large files into modules |
+| [engineering](skills/engineering/)       | 5  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, splitting large files into modules, and bounded compressed NDJSON ingestion |
 | [security](skills/security/)           | 1  | 0 | Container image vulnerability scanning, targeted patching, and verification |
 | [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
 | [github](skills/github/)               | 2  | 0 | GitHub operational workflows and npm publishing |

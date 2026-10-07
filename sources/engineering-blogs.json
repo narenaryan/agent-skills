@@ -262,7 +262,15 @@
         "updated": null,
         "disposition": "quality_example_only",
         "skill_path": null
-      }
+      },
+      "derived_articles": [
+        {
+          "url": "https://lemire.me/blog/2026/10/01/parsing-compressed-json-at-40-gb-s/",
+          "published": "2026-10-01",
+          "reviewed": "2026-10-07",
+          "skill_path": "skills/engineering/compressed-ndjson-boundaries/SKILL.md"
+        }
+      ]
     },
     {
       "id": "tigerbeetle",
