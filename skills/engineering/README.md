@@ -9,6 +9,8 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 - **[macos-disk-space-recovery](macos-disk-space-recovery/SKILL.md)** - diagnose low disk space on macOS with APFS-aware measurement, rank real offenders, and remove caches or app data safely while reporting reclaimed space.
 - **[modularize-large-files](modularize-large-files/SKILL.md)** - find files past ~2k lines and split god modules along cohesion seams, preserving the public API with re-exports and verifying tests between each behavior-preserving extraction.
 
+- **[compressed-ndjson-boundaries](compressed-ndjson-boundaries/SKILL.md)** - preserve record boundaries through zstd decompression, cap memory growth, reject truncated streams, and respect simdjson lifetimes.
+
 ## Install
 
 ```bash
@@ -17,4 +19,5 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 ./install.sh ai-bug-patterns              # install one
 ./install.sh macos-disk-space-recovery    # install one
 ./install.sh modularize-large-files       # install one
+./install.sh compressed-ndjson-boundaries # install one
 ```
