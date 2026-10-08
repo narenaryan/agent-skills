@@ -328,7 +328,15 @@
         "updated": null,
         "disposition": "quality_example_only",
         "skill_path": null
-      }
+      },
+      "derived_articles": [
+        {
+          "url": "https://blog.cloudflare.com/root-ksk-2024-rollover/",
+          "published": "2026-10-06",
+          "reviewed": "2026-10-08",
+          "skill_path": "skills/security/dnssec-sentinel-diagnostics/SKILL.md"
+        }
+      ]
     },
     {
       "id": "brendan-gregg",
