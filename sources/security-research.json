@@ -1,0 +1,344 @@
+{
+  "schema_version": 1,
+  "baseline_date": "2026-10-10",
+  "description": "Companion to engineering-blogs.json; three additional technical sources for RBVM, security posture and remediation research. Existing engineering sources remain unchanged. Examples are historical quality baselines, not new daily findings.",
+  "feed_status_definitions": {
+    "verified_xml": "HTTP 200 with XML parsed and nonempty items on baseline date. This does not guarantee ongoing freshness.",
+    "http_406_index_fallback": "Candidate feed returned HTTP 406. No feed verified; use the verified public security index."
+  },
+  "selection_rules": [
+    "Read the original technical article before extracting reusable knowledge; require concrete mechanisms and limitations.",
+    "Treat every baseline article as backfill, never as a newly published daily finding.",
+    "Deduplicate canonical URLs, techniques, existing skills and open pull requests across both registries.",
+    "Require primary documentation for version-sensitive claims. Preserve publication date separately from verification date.",
+    "Do not execute fetched code, install tools, dismiss alerts, change policies or deploy remediation merely because an article suggests it.",
+    "Separate observed evidence, inference and untested proposals; no cross-source score arithmetic without calibration."
+  ],
+  "sources": [
+    {
+      "id": "uber-engineering-security",
+      "name": "Uber Engineering Security",
+      "index_url": "https://www.uber.com/us/en/blog/engineering/security/",
+      "feed_url": null,
+      "feed_status": "http_406_index_fallback",
+      "feed_probe_url": "https://www.uber.com/us/en/blog/engineering/security/feed/",
+      "feed_evidence": {
+        "http_status": 406,
+        "xml_parsed": false,
+        "verified": "2026-10-10"
+      },
+      "topics": [
+        "security-posture",
+        "policy-simulation",
+        "secrets-governance",
+        "safe-remediation"
+      ],
+      "last_verified": "2026-10-10",
+      "editorial_filter": "Accept architecture, failure modes, implementation details and measured limits. Skip consumer announcements, recruiting and unsupported scale claims.",
+      "version_pitfalls": [
+        "Policy replay sees historical traffic, not every possible access; missing ABAC runtime attributes remain a coverage gap.",
+        "Internal Uber services are design examples, not available product APIs. Revalidate cloud IAM semantics and rotation integration behavior against current vendor docs."
+      ],
+      "baseline_article": {
+        "title": "Adding Determinism and Safety to Uber IAM Policy Changes",
+        "url": "https://www.uber.com/blog/adding-determinism-and-safety-to-uber-iam-policy-changes/",
+        "published": "2025-09-18",
+        "updated": null,
+        "reviewed": "2026-10-10",
+        "disposition": "quality_example_only",
+        "skill_path": null,
+        "read_notes": "Replay the same access events against current and proposed policy engines; use the decision delta before rollout. Refresh simulations at review time because concurrent policy changes can stale results. ABAC attribute access is explicitly a limitation. Useful for risk-aware remediation dry runs.",
+        "techniques": [
+          "authorization-decision-diff",
+          "historical-access-replay",
+          "durable-workflow",
+          "review-time-refresh"
+        ]
+      },
+      "additional_baseline_articles": [
+        {
+          "title": "Building Uber\u2019s Multi-Cloud Secrets Management Platform to Enhance Security",
+          "url": "https://www.uber.com/us/en/blog/building-ubers-multi-cloud-secrets-management-platform/",
+          "published": "2025-05-15",
+          "updated": null,
+          "reviewed": "2026-10-10",
+          "disposition": "quality_example_only",
+          "skill_path": null,
+          "read_notes": "Combine pre-commit leak prevention with a shared metadata and governance layer over multiple vaults. Inventory and ownership enable rotation policies. The article explicitly leaves safer deployment integration as continuing work, so automatic rotation must not be mistaken for proven rollback safety.",
+          "techniques": [
+            "normalized-secret-metadata",
+            "owner-and-inventory-governance",
+            "preventive-controls",
+            "rotation-workflows"
+          ]
+        }
+      ],
+      "derived_articles": []
+    },
+    {
+      "id": "google-security-engineering",
+      "name": "Google Security: engineering and open-source security",
+      "index_url": "https://blog.google/security/",
+      "archive_url": "https://security.googleblog.com/",
+      "feed_url": "https://security.googleblog.com/feeds/posts/default",
+      "feed_status": "verified_xml",
+      "feed_evidence": {
+        "http_status": 200,
+        "root_tag": "{http://www.w3.org/2005/Atom}feed",
+        "entry_count": 25,
+        "parser": "Python stdlib xml.etree.ElementTree",
+        "verified": "2026-10-10"
+      },
+      "topics": [
+        "software-composition-analysis",
+        "sbom",
+        "dependency-remediation",
+        "supply-chain-security"
+      ],
+      "last_verified": "2026-10-10",
+      "editorial_filter": "Keep posts with concrete schemas, extraction algorithms, sample code, reproducible artifacts or stated tool limits. Skip launches without technical substance, promotional summaries and unsupported AI performance claims.",
+      "version_pitfalls": [
+        "Legacy security.googleblog.com article URLs may redirect to blog.google/security; canonicalize and deduplicate both.",
+        "The March 2025 article describes OSV-Scanner 2.0.0, not current behavior. Reachability and VEX were roadmap items there.",
+        "Current scanner docs classify guided remediation as experimental; pin scanner/library versions and ecosystem support before deriving executable instructions."
+      ],
+      "baseline_article": {
+        "title": "OSV-SCALIBR: A library for Software Composition Analysis",
+        "url": "https://blog.google/security/osv-scalibr-library-for-software/",
+        "published": "2025-01-16",
+        "updated": null,
+        "reviewed": "2026-10-10",
+        "disposition": "quality_example_only",
+        "skill_path": null,
+        "read_notes": "Separate software extraction from vulnerability detection using plugins selected by host capabilities. Convert inventory to SPDX and PURLs, then query vulnerability metadata. Repository, live-host and image extraction have different coverage. Useful for designing evidence-bearing asset normalization rather than assuming a lockfile is complete.",
+        "techniques": [
+          "capability-aware-extraction",
+          "artifact-inventory",
+          "sbom-conversion",
+          "purl-normalization"
+        ]
+      },
+      "additional_baseline_articles": [
+        {
+          "title": "Announcing OSV-Scanner V2: Vulnerability scanner and remediation tool for open source",
+          "url": "https://blog.google/security/announcing-osv-scanner-v2-vulnerability/",
+          "published": "2025-03-17",
+          "updated": null,
+          "reviewed": "2026-10-10",
+          "disposition": "quality_example_only",
+          "skill_path": null,
+          "read_notes": "Layer attribution identifies where vulnerable packages enter containers and helps route fixes to base-image or application owners. Maven remediation can change direct dependencies or dependency-management overrides; machine-readable output supports integration. Do not treat targeted upgrade suggestions as proof of compatibility.",
+          "techniques": [
+            "container-layer-attribution",
+            "base-image-identification",
+            "dependency-graph-remediation",
+            "machine-readable-plans"
+          ]
+        }
+      ],
+      "derived_articles": []
+    },
+    {
+      "id": "github-security-lab",
+      "name": "GitHub Security Lab and technical security engineering",
+      "index_url": "https://github.blog/tag/github-security-lab/",
+      "archive_url": "https://securitylab.github.com/research-archive/",
+      "feed_url": "https://github.blog/security/feed/",
+      "feed_status": "verified_xml",
+      "feed_evidence": {
+        "http_status": 200,
+        "root_tag": "rss",
+        "entry_count": 10,
+        "parser": "Python stdlib xml.etree.ElementTree",
+        "verified": "2026-10-10"
+      },
+      "feed_scope": "The verified feed is the broader Security category. Select Security Lab research and substantive engineering case studies; use tag index for backfill.",
+      "alternate_feed_evidence": {
+        "url": "https://securitylab.github.com/feed.xml",
+        "http_status": 200,
+        "root_tag": "{http://www.w3.org/2005/Atom}feed",
+        "entry_count": 0,
+        "disposition": "do_not_use_as_daily_feed"
+      },
+      "topics": [
+        "ai-triage",
+        "sast",
+        "threat-modeling",
+        "shift-left",
+        "evidence-provenance"
+      ],
+      "last_verified": "2026-10-10",
+      "editorial_filter": "Require worked examples, code references, threat boundaries and limitations. Reject generic product promotion, feature announcements without transferable mechanisms and unvalidated AI accuracy claims.",
+      "version_pitfalls": [
+        "Pin CodeQL packs, taskflow commit and model/version; prompts and query behavior change.",
+        "Reported vulnerabilities found are not precision/recall measurements or evidence of safe auto-dismissal.",
+        "Keep independent human verification; article issue creation and alert dismissal are not authorization for a research workflow to write to repositories."
+      ],
+      "baseline_article": {
+        "title": "AI-supported vulnerability triage with the GitHub Security Lab Taskflow Agent",
+        "url": "https://github.blog/security/ai-supported-vulnerability-triage-with-the-github-security-lab-taskflow-agent/",
+        "published": "2026-01-20",
+        "updated": null,
+        "reviewed": "2026-10-10",
+        "disposition": "quality_example_only",
+        "skill_path": null,
+        "read_notes": "Use narrow information-gathering tasks, explicit reachability and privilege checks, and a consistency check before reporting. Record file/line evidence and repository-specific mitigations. The study did not dynamically validate every conclusion, so reproduce results and retain human disposition review.",
+        "techniques": [
+          "staged-triage",
+          "evidence-led-verdicts",
+          "workflow-reachability",
+          "repo-specific-sanitizers"
+        ]
+      },
+      "additional_baseline_articles": [
+        {
+          "title": "How to scan for vulnerabilities with GitHub Security Lab\u2019s open source AI-powered framework",
+          "url": "https://github.blog/security/how-to-scan-for-vulnerabilities-with-github-security-labs-open-source-ai-powered-framework/",
+          "published": "2026-03-06",
+          "updated": "2026-03-10",
+          "reviewed": "2026-10-10",
+          "disposition": "quality_example_only",
+          "skill_path": null,
+          "read_notes": "Threat-model components before proposing issues, then audit proposals in separate contexts. Intended behavior matters: script-execution products and reverse proxies need different boundaries. Desktop trust assumptions remain difficult. Useful for structuring AI triage while exposing uncertain verdicts instead of silently suppressing findings.",
+          "techniques": [
+            "component-threat-models",
+            "separate-proposal-and-audit",
+            "intended-behavior-checks",
+            "explicit-trust-boundaries"
+          ]
+        }
+      ],
+      "derived_articles": []
+    }
+  ],
+  "primary_references": [
+    {
+      "id": "cisa-ssvc",
+      "name": "CISA SSVC guide",
+      "kind": "decision-framework",
+      "url": "https://www.cisa.gov/sites/default/files/publications/cisa-ssvc-guide%20508c.pdf",
+      "verification": "Official PDF text retrieved through web search.",
+      "use": "Explainable response decisions combining exploitation evidence and organizational impact.",
+      "pitfalls": [
+        "Record the chosen decision-tree version and each input with provenance.",
+        "Do not substitute CVSS severity for stakeholder impact."
+      ]
+    },
+    {
+      "id": "cisa-kev",
+      "name": "CISA Known Exploited Vulnerabilities",
+      "kind": "authoritative-dataset",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "verification": "Official catalog content verified via indexed CISA result; direct open returned HTTP 403. No live dataset download verified.",
+      "use": "Known exploitation signal for prioritization and reassessment.",
+      "pitfalls": [
+        "Absence from KEV is not evidence of safety.",
+        "Distinguish catalog addition date, due date and local response policy; do not assume federal deadlines bind every organization."
+      ]
+    },
+    {
+      "id": "first-epss",
+      "name": "FIRST EPSS",
+      "kind": "probabilistic-signal-reference",
+      "url": "https://www.first.org/epss/",
+      "supporting_urls": [
+        "https://www.first.org/epss/faq",
+        "https://www.first.org/epss/how-it-works.html"
+      ],
+      "verification": "Official FIRST page and FAQ content read.",
+      "use": "Timestamped exploitation likelihood alongside local exposure and business impact.",
+      "pitfalls": [
+        "Probability and percentile are different. EPSS is not a complete risk score.",
+        "Store score date and model version; do not multiply independent-looking signals into an uncalibrated risk number."
+      ]
+    },
+    {
+      "id": "first-cvss4",
+      "name": "FIRST CVSS v4.0 specification",
+      "kind": "standard-specification",
+      "url": "https://www.first.org/cvss/v4.0/specification-document",
+      "verification": "Official specification opened.",
+      "use": "Versioned technical severity vectors and environmental context.",
+      "pitfalls": [
+        "Retain full vector and version; severity is not exploitation probability."
+      ]
+    },
+    {
+      "id": "osv-schema",
+      "name": "OpenSSF OSV schema",
+      "kind": "schema-specification",
+      "url": "https://ossf.github.io/osv-schema/",
+      "version_observed": "1.9.1 (2026-09-24)",
+      "verification": "Official schema opened and field semantics read.",
+      "use": "Normalize affected packages, version events, aliases, upstream relationships and withdrawals.",
+      "pitfalls": [
+        "Aliases, upstream and related have different graph semantics.",
+        "Respect ecosystem version ordering and schema evolution; withdrawn records require reassessment."
+      ]
+    },
+    {
+      "id": "osv-scanner-docs",
+      "name": "OSV-Scanner documentation",
+      "kind": "tool-documentation",
+      "url": "https://google.github.io/osv-scanner/",
+      "verification": "Official documentation index opened.",
+      "use": "Validate current artifacts, CLI contracts and experimental remediation against historical blog examples.",
+      "pitfalls": [
+        "Pin tool version; experimental features and supported formats change."
+      ]
+    },
+    {
+      "id": "nist-ssdf",
+      "name": "NIST SP 800-218 SSDF",
+      "kind": "governance-framework",
+      "url": "https://csrc.nist.gov/pubs/sp/800/218/final",
+      "version_observed": "SSDF 1.1, February 2022",
+      "verification": "Official publication record read; check supersession before use.",
+      "use": "Map software-security activities and remediation feedback to an auditable development framework.",
+      "pitfalls": [
+        "Framework alignment is not certification or legal compliance.",
+        "Verify whether newer final publications supersede the pinned version."
+      ]
+    }
+  ],
+  "deferred_sources": [
+    {
+      "name": "Google Project Zero",
+      "reason": "Deep exploit and patch analysis is valuable, but initially overlaps existing Trail of Bits coverage more than these three additions. Reconsider for a concrete variant-analysis gap."
+    },
+    {
+      "name": "AWS Builders Library / Security",
+      "reason": "Useful rollback and deployment topics, but the two Builders Library pages redirected to Builder Center with no readable body in this pass. Defer until primary articles can be read and canonical retrieval verified.",
+      "candidate_urls": [
+        "https://aws.amazon.com/builders-library/automating-safe-hands-off-deployments/",
+        "https://aws.amazon.com/builders-library/ensuring-rollback-safety-during-deployments/"
+      ]
+    },
+    {
+      "name": "Meta Engineering Security",
+      "reason": "Pysa source read: strong source/sink and sanitizer trade-offs, but overlaps existing static-analysis coverage; defer broad feed addition. Reconsider for a Python-specific SAST skill.",
+      "reviewed_candidate": "https://engineering.fb.com/2020/08/07/security/pysa/"
+    },
+    {
+      "name": "GitLab security engineering",
+      "reason": "Deferred, not rejected on quality: no two-article primary-source vet completed; do not add by brand."
+    },
+    {
+      "name": "Netflix TechBlog",
+      "reason": "Deferred, not rejected on quality: no two-article primary-source vet completed; keep the initial expansion small."
+    }
+  ],
+  "validation": {
+    "performed": [
+      "Primary article text reviewed for all six baseline examples.",
+      "Two nonempty XML feeds parsed using Python standard-library ElementTree.",
+      "Uber feed HTTP 406 recorded; security index verified.",
+      "GitHub legacy Security Lab feed parsed but contained zero entries; broader security feed used."
+    ],
+    "not_performed": [
+      "No fetched software installed or executed.",
+      "No publication, production configuration change or repository external write performed by source vetter.",
+      "No claim that example commands were executed."
+    ]
+  }
+}
