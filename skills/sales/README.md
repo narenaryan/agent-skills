@@ -4,7 +4,7 @@ Evidence-led B2B qualification, buyer-owned decision plans, and controlled comme
 
 ## Skills
 
-- **[sales-discovery-qualification](sales-discovery-qualification/SKILL.md)** - evaluate discovery evidence, qualification gaps, and buyer-agreed next steps without confusing activity with buying progress.
+- **[sales-discovery-qualification](sales-discovery-qualification/SKILL.md)** - evaluate discovery evidence, selectively revalidate changed buying decisions, and identify buyer-agreed next steps.
 - **[sales-mutual-action-plans](sales-mutual-action-plans/SKILL.md)** - map stakeholder roles, approval dependencies, and buyer-owned milestones through realization of value.
 - **[sales-value-negotiation](sales-value-negotiation/SKILL.md)** - prepare multi-issue commercial packages, defensible alternatives, and controlled concessions.
 
