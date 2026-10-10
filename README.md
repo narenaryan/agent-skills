@@ -50,7 +50,7 @@ https://github.com/narenaryan/agent-skills
 | [database](skills/database/)           | 1  | 0 | PostgreSQL locking joins, statement snapshots, and concurrency-safe reads |
 | [marketing](skills/marketing/)         | 3  | 0 | Evidence-led positioning, causal campaign measurement, sample-ratio diagnostics, and cohort-aware funnel diagnosis |
 | [engineering](skills/engineering/)       | 5  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, splitting large files into modules, and bounded compressed NDJSON ingestion |
-| [security](skills/security/)           | 2  | 0 | Container image patching and DNSSEC trust-anchor sentinel diagnostics |
+| [security](skills/security/)           | 10 | 0 | Risk-based vulnerability evidence, triage, guarded remediation, governance, AI evaluation, security gates, container patching and DNSSEC diagnostics |
 | [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
 | [github](skills/github/)               | 2  | 0 | GitHub operational workflows and npm publishing |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
@@ -65,6 +65,12 @@ https://github.com/narenaryan/agent-skills
 [The source registry](sources/engineering-blogs.json) records 15 selected engineering blogs, Hacker News discovery links, feed verification status, editorial filters, and historical example articles. The examples establish source quality; they are not announcements of newly published content. Two examples link to the initial proposed skills.
 
 Before converting another article, inspect existing skills and open pull requests for overlap, read the original source, and verify version-sensitive claims. Use the [skill-creator command](commands/skill-creator/skill-creator.md) with repository paths under `skills/`; publication through a pull request does not install skills locally.
+
+## Security research sources
+
+[The security research companion](sources/security-research.json) adds three vetted technical sources: Uber Engineering Security, Google Security, and GitHub Security Lab. Six historical articles establish quality; primary standards and schema references are listed separately. Use both registries, respect feed verification and index fallbacks, and deduplicate articles and techniques across them.
+
+The [security collection](skills/security/README.md) follows the evidence-to-decision-to-remediation lifecycle. Its synthetic fixtures check decision contracts, not live infrastructure or model performance.
 
 ## Installer options
 
