@@ -26,10 +26,11 @@ Filesystem paths and process args are **not** guaranteed UTF-8 on Unix.
 
 ## Panic-on-input is a DoS
 
-`unwrap()`, `expect()`, `slice[i]`, `a + b`, `a - b` all panic on attacker-controlled input. For services and CLIs taking untrusted data, enable in `Cargo.toml` or `clippy.toml`:
+`unwrap()`, `expect()`, and indexing can panic when input violates their preconditions. Integer `+`/`-` overflow can panic with checks enabled or wrap with checks disabled; never rely on build-profile behavior to reject invalid input. For input-facing crates, configure optional Clippy restrictions in `Cargo.toml`:
 
 ```toml
-# clippy lints to deny/warn in untrusted-input crates
+# Cargo.toml (not clippy.toml)
+[lints.clippy]
 unwrap_used = "warn"
 expect_used = "warn"
 panic = "warn"
@@ -37,7 +38,7 @@ indexing_slicing = "warn"
 arithmetic_side_effects = "warn"
 ```
 
-Use `?`, `.get(i)`, `checked_add`, `try_from`.
+Use `?`, `.get(i)`, `checked_add`, `try_from` for expected failures. A justified `expect` may document an internal invariant whose violation is a bug; explain why input cannot invalidate it. [Gallant's panic-boundary discussion](https://burntsushi.net/unwrap/) distinguishes those bugs from recoverable input errors. [Rust's overflow rules](https://doc.rust-lang.org/stable/reference/expressions/operator-expr.html#overflow) remain configuration-sensitive.
 
 ## Silently discarded errors
 
