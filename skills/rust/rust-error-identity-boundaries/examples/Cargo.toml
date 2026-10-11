@@ -1,0 +1,12 @@
+[package]
+name = "rust-error-identity-boundaries-fixture"
+version = "0.1.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+anyhow = "=1.0.104"
+thiserror = "=2.0.21"
+
+# Keep this isolated fixture from joining a surrounding workspace implicitly.
+[workspace]
