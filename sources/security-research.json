@@ -57,7 +57,7 @@
       },
       "additional_baseline_articles": [
         {
-          "title": "Building Uber\u2019s Multi-Cloud Secrets Management Platform to Enhance Security",
+          "title": "Building Uber’s Multi-Cloud Secrets Management Platform to Enhance Security",
           "url": "https://www.uber.com/us/en/blog/building-ubers-multi-cloud-secrets-management-platform/",
           "published": "2025-05-15",
           "updated": null,
@@ -73,21 +73,32 @@
           ]
         }
       ],
-      "derived_articles": []
+      "derived_articles": [
+        {
+          "url": "https://www.uber.com/blog/adding-determinism-and-safety-to-uber-iam-policy-changes/",
+          "published": "2025-09-18",
+          "reviewed": "2026-10-11",
+          "skill_path": "skills/security/iam-policy-change-replay/SKILL.md",
+          "disposition": "historical_backfill"
+        }
+      ]
     },
     {
       "id": "google-security-engineering",
       "name": "Google Security: engineering and open-source security",
       "index_url": "https://blog.google/security/",
       "archive_url": "https://security.googleblog.com/",
-      "feed_url": "https://security.googleblog.com/feeds/posts/default",
+      "feed_url": "https://blog.google/security/rss/",
       "feed_status": "verified_xml",
       "feed_evidence": {
         "http_status": 200,
-        "root_tag": "{http://www.w3.org/2005/Atom}feed",
-        "entry_count": 25,
+        "root_tag": "rss",
+        "entry_count": 20,
         "parser": "Python stdlib xml.etree.ElementTree",
-        "verified": "2026-10-10"
+        "verified": "2026-10-11",
+        "discovery_url": "https://blog.google/security/",
+        "newest_published": "2026-10-07",
+        "raw_sha256": "4958402b49f2c8222b6679cce9faa213b11216c645e0795d38e7109479f8a252"
       },
       "topics": [
         "software-composition-analysis",
@@ -95,12 +106,13 @@
         "dependency-remediation",
         "supply-chain-security"
       ],
-      "last_verified": "2026-10-10",
+      "last_verified": "2026-10-11",
       "editorial_filter": "Keep posts with concrete schemas, extraction algorithms, sample code, reproducible artifacts or stated tool limits. Skip launches without technical substance, promotional summaries and unsupported AI performance claims.",
       "version_pitfalls": [
         "Legacy security.googleblog.com article URLs may redirect to blog.google/security; canonicalize and deduplicate both.",
         "The March 2025 article describes OSV-Scanner 2.0.0, not current behavior. Reachability and VEX were roadmap items there.",
-        "Current scanner docs classify guided remediation as experimental; pin scanner/library versions and ecosystem support before deriving executable instructions."
+        "Current scanner docs classify guided remediation as experimental; pin scanner/library versions and ecosystem support before deriving executable instructions.",
+        "A successful legacy Blogger XML fetch can be stale. On 2026-10-11 it ended at April 23 while the index-linked replacement RSS reached October 7; compare the index and preserve prior history when changing feeds."
       ],
       "baseline_article": {
         "title": "OSV-SCALIBR: A library for Software Composition Analysis",
@@ -136,7 +148,18 @@
           ]
         }
       ],
-      "derived_articles": []
+      "derived_articles": [],
+      "legacy_feed_evidence": {
+        "url": "https://security.googleblog.com/feeds/posts/default",
+        "http_status": 200,
+        "root_tag": "{http://www.w3.org/2005/Atom}feed",
+        "entry_count": 25,
+        "parser": "Python stdlib xml.etree.ElementTree",
+        "verified": "2026-10-10",
+        "newest_published": "2026-04-23",
+        "rechecked": "2026-10-11",
+        "disposition": "Retain historical entries; not a current new-article feed."
+      }
     },
     {
       "id": "github-security-lab",
@@ -192,7 +215,7 @@
       },
       "additional_baseline_articles": [
         {
-          "title": "How to scan for vulnerabilities with GitHub Security Lab\u2019s open source AI-powered framework",
+          "title": "How to scan for vulnerabilities with GitHub Security Lab’s open source AI-powered framework",
           "url": "https://github.blog/security/how-to-scan-for-vulnerabilities-with-github-security-labs-open-source-ai-powered-framework/",
           "published": "2026-03-06",
           "updated": "2026-03-10",
