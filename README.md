@@ -50,7 +50,7 @@ https://github.com/narenaryan/agent-skills
 | [database](skills/database/)           | 1  | 0 | PostgreSQL locking joins, statement snapshots, and concurrency-safe reads |
 | [marketing](skills/marketing/)         | 3  | 0 | Evidence-led positioning, causal campaign measurement, sample-ratio diagnostics, and cohort-aware funnel diagnosis |
 | [engineering](skills/engineering/)       | 5  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, splitting large files into modules, and bounded compressed NDJSON ingestion |
-| [security](skills/security/)           | 10 | 0 | Risk-based vulnerability evidence, triage, guarded remediation, governance, AI evaluation, security gates, container patching and DNSSEC diagnostics |
+| [security](skills/security/)           | 11 | 0 | Risk-based vulnerability evidence, triage, guarded remediation, IAM policy replay, governance, AI evaluation, security gates, container patching and DNSSEC diagnostics |
 | [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
 | [github](skills/github/)               | 2  | 0 | GitHub operational workflows and npm publishing |
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
@@ -98,3 +98,4 @@ Default is copy; use `--link` if you're contributing or want `git pull` on this 
 3. Run `./test.sh` to make sure the installer still works.
 
 Skills should be 300–500 words. If you need more, you probably need to split the skill.
+

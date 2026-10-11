@@ -18,6 +18,8 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 - **[security-gate-rollout](security-gate-rollout/SKILL.md)** - distinguish pass, fail and unknown while promoting policy from shadow to bounded enforcement.
 - **[ai-triage-evaluation](ai-triage-evaluation/SKILL.md)** - evaluate legitimate task utility, false dismissals, prompt injection and tool effects independently.
 
+- **[iam-policy-change-replay](iam-policy-change-replay/SKILL.md)** - compare current/candidate authorization per resource, preserving required access and rejecting incomplete replay evidence.
+
 ## Use together
 
 Start with identity and applicability, then prioritize. Guarded remediation and risk exceptions describe alternate dispositions; verified closure requires independent evidence afterward. Security gates prevent new debt; AI evaluation checks proposed automation. Reuse [container-image-patching](container-image-patching/SKILL.md) for the narrow patch recipe and [AI bug patterns](../engineering/ai-bug-patterns/SKILL.md) for implementation review. These skills do not grant permission to change production systems.
@@ -30,3 +32,4 @@ Each new skill links provenance, worked counterexamples, and offline standard-li
 ./install.sh security                 # install all
 ./install.sh container-image-patching # install one
 ```
+
