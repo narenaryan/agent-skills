@@ -16,7 +16,8 @@ Reviewed 2026-10-12. The closure join and post-close reopen procedure are origin
 5. A host has the corrected package on disk but still runs the old loaded library pending restart. Result: installation complete, activation unverified.
 6. The approved multi-platform index is X and the running platform manifest is Y. Result: require recorded membership Y in X plus platform-specific scan coverage; do not fail or pass based solely on X != Y.
 7. A removed asset is absent from the new inventory. Result: require decommission evidence; absence alone cannot distinguish retirement from collection failure.
-8. A finding was closed after digest B was verified, but a recovery restore puts digest A back on one asset. Result: the post-close watch reopens the same finding for that asset, retains the original population denominator, and triggers fresh priority/exception review; old closure evidence does not certify the reverted state.
+8. After closure on digest B, a fresh successful runtime observation confirms recovery restored vulnerable digest A to one asset. Result: confirmed regression; reopen the same finding for that asset, retain the original denominator, and re-evaluate priority/exceptions. Old closure evidence does not certify the reverted state.
+9. After closure on B, the monitor is stale or missing and reports no current digest. Result: unknown/verification-pending; investigate, but do not infer clean status or call it a regression. If a current successful observation later confirms vulnerable A, classify confirmed regression and reopen; the stale monitor alone supports neither conclusion.
 
 ## Local evidence fixture
 
