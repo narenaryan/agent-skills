@@ -5,7 +5,7 @@ description: Use when a vulnerability ticket, patch PR, or deployment is marked 
 
 # Verified Closure
 
-Closure is a join between the original affected population, the actual deployed state, and a successful verification result. A merged PR or clean candidate image proves neither rollout nor fleet coverage.
+Closure is a join between the original affected population, the actual deployed state, and a successful verification result. A merged PR or clean candidate image proves neither rollout nor fleet coverage; Later rollback can undo closure.
 
 ## Evidence join
 
@@ -24,12 +24,13 @@ Closure is a join between the original affected population, the actual deployed 
 3. Verify the runtime state after activation. A fresh image scan may combine with fresh runtime digest evidence; it does not require scanning every identical image repeatedly. Host/runtime changes need corresponding live evidence.
 4. Compare detection scope with baseline: credentials, package ecosystem, file paths, severity filters, suppressions, database freshness, and scan errors. Missing findings count only when the relevant checks completed successfully.
 5. Record disposition separately: fixed, mitigated, accepted-risk, false-positive, decommissioned, or verification-pending. Keep accepted exceptions visible through `rbvm-risk-exceptions`.
+6. Keep a risk-tiered post-close monitoring loop for each asset's deployed artifact/version and any mitigation the disposition relies on. Set its interval by local risk policy. If rollback, vulnerable backup restoration, reset to a vulnerable factory default, patch removal, or mitigation loss reintroduces exposure, reopen the same finding for regressed assets; preserve the original population denominator, recompute priority and any exception, then verify closure again.
 
 Example: 12 pods were affected; 11 run the verified replacement digest and one still runs the old image. Report 11/12 verified and keep the remaining exposure open, even if the deployment ticket says Done.
 
 Local fixture: `python3 skills/security/rbvm-verified-closure/scripts/check_closure.py` tests evidence decisions only, not production assets.
 
-Sources: NIST SP 800-40 Rev. 4 (April 2022), §§2.2–2.3; Kubernetes Images documentation, reviewed 2026-10-10. Original gate design and scenarios: [SOURCES.md](SOURCES.md).
+Sources: [NIST SP 800-40 Rev. 4 (April 2022), §§2.2(d) and 2.3.4](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf) calls for continuous risk-response monitoring and cites patch removal, vulnerable backup restoration, and factory reset; cadence is local policy. [Kubernetes Images documentation](https://kubernetes.io/docs/concepts/containers/images/), reviewed 2026-10-12. See [SOURCES.md](SOURCES.md).
 
 ## Pitfalls
 
@@ -37,3 +38,4 @@ Sources: NIST SP 800-40 Rev. 4 (April 2022), §§2.2–2.3; Kubernetes Images do
 - A scan timestamp after deployment does not prove its input was current.
 - Scanner failure, suppression, or scope reduction can masquerade as remediation.
 - Reboot-pending or restarted vulnerable processes invalidate “installed equals effective.”
+- A clean one-time post-activation scan says nothing about later rollback or mitigation loss.
