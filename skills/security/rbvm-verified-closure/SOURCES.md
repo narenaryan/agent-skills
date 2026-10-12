@@ -1,10 +1,10 @@
 # Source ledger and verification examples
 
-Reviewed 2026-10-10. The closure join is an original implementation pattern. It is not a claim that NIST requires a particular scanner, schema, digest field, or evidence-retention period.
+Reviewed 2026-10-12. The closure join and post-close reopen procedure are original implementation patterns. NIST does not require a particular scanner, schema, digest field, finding-ID policy, reopen workflow, monitoring interval, or evidence-retention period.
 
 ## Primary evidence
 
-- [NIST SP 800-40 Rev. 4](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf), Murugiah Souppaya and Karen Scarfone, April 2022. Sections 2.2 and 2.3 distinguish implementing a risk response, verifying that it took effect, and monitoring its continued presence. Sections 2.3.2–2.3.4 discuss activation, verification, and later change. This supports treating patch installation and ticket completion as insufficient by themselves.
+- [NIST SP 800-40 Rev. 4](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf), Murugiah Souppaya and Karen Scarfone, April 2022. Section 2.2(d) says to continuously monitor the risk response; §2.3.4 says to monitor that deployed patches remain installed, citing patch removal, vulnerable software restored from backup, and factory reset. This supports a post-close drift watch. The local risk-tiered cadence, same-finding reopen, and denominator handling are implementation choices, not NIST requirements.
 - [Kubernetes: Images](https://kubernetes.io/docs/concepts/containers/images/), continuously updated documentation, sections “Image names” and “Multi-architecture images with image indexes.” Tags may move; content digests are immutable. An image index can refer to architecture-specific manifests. This motivates identity-aware comparison instead of a raw tag match or an unqualified digest-string comparison.
 
 ## Original worked scenarios
@@ -16,6 +16,7 @@ Reviewed 2026-10-10. The closure join is an original implementation pattern. It 
 5. A host has the corrected package on disk but still runs the old loaded library pending restart. Result: installation complete, activation unverified.
 6. The approved multi-platform index is X and the running platform manifest is Y. Result: require recorded membership Y in X plus platform-specific scan coverage; do not fail or pass based solely on X != Y.
 7. A removed asset is absent from the new inventory. Result: require decommission evidence; absence alone cannot distinguish retirement from collection failure.
+8. A finding was closed after digest B was verified, but a recovery restore puts digest A back on one asset. Result: the post-close watch reopens the same finding for that asset, retains the original population denominator, and triggers fresh priority/exception review; old closure evidence does not certify the reverted state.
 
 ## Local evidence fixture
 
@@ -25,7 +26,7 @@ Run from repository root:
 python3 skills/security/rbvm-verified-closure/scripts/check_closure.py
 ```
 
-The fixture deliberately exercises only the post-activation scan path; its timestamp rule is stricter than the skill's alternative immutable-artifact workflow. A valid predeployment artifact scan plus current runtime-digest proof needs a separate adapter with explicit scan/database freshness policy. The stdlib fixture models four independent joins: population coverage, artifact identity, evidence ordering, and successful relevant detection. It exercises one success and counterexamples for each gate, including empty scope. Timestamps and identities are synthetic; no cloud, host, scanner, authentication, concurrency, or rollout behavior is tested. Production adapters must establish evidence authenticity, freshness policy, manifest relationships, scanner coverage, and race resistance themselves.
+The fixture deliberately exercises only the closure-time post-activation scan path; it does not test recurring post-close drift monitoring, alerting, or reopen delivery. Its timestamp rule is stricter than the skill's alternative immutable-artifact workflow. A valid predeployment artifact scan plus current runtime-digest proof needs a separate adapter with explicit scan/database freshness policy. The stdlib fixture models four independent joins: population coverage, artifact identity, evidence ordering, and successful relevant detection. It exercises one success and counterexamples for each gate, including empty scope. Timestamps and identities are synthetic; no cloud, host, scanner, authentication, concurrency, recurring monitor, or rollout behavior is tested. Production adapters must establish evidence authenticity, freshness policy, manifest relationships, scanner coverage, monitoring delivery, and race resistance themselves.
 
 ## Overlap boundary
 
