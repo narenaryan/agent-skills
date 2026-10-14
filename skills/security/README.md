@@ -25,7 +25,7 @@ Evidence-driven security workflows, from asset identity and applicability throug
 
 Start with identity and applicability, then prioritize. OT findings also need a process-aware treatment plan before change execution. Guarded remediation and risk exceptions describe alternate dispositions; verified closure requires independent evidence afterward. Security gates prevent new debt; AI evaluation checks proposed automation. Reuse [container-image-patching](container-image-patching/SKILL.md) for the narrow patch recipe and [AI bug patterns](../engineering/ai-bug-patterns/SKILL.md) for implementation review. These skills do not grant permission to change production systems.
 
-Each new skill links provenance, worked counterexamples, and offline standard-library fixtures. Passing those fixtures is not a production, scanner-engine, Kubernetes, or LLM benchmark result.
+New skills document provenance and worked counterexamples; where useful, offline standard-library fixtures check bounded decision contracts. These fixtures are not production, scanner-engine, Kubernetes, or LLM benchmark results.
 
 ## Install
 
