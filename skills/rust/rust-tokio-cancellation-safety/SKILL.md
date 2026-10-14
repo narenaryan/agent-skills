@@ -1,6 +1,6 @@
 ---
 name: rust-tokio-cancellation-safety
-description: Use when a Tokio loop races I/O, shutdown, timers, or receives with `select!` and may restart an operation after cancellation; prevent lost input, duplicated output, or lost queue position.
+description: Use when a Tokio loop races I/O, shutdown, timers, or receives with `select!` and may restart an operation after cancellation; prevent lost input, duplicated output.
 ---
 
 # Tokio Cancellation Safety
@@ -11,10 +11,10 @@ description: Use when a Tokio loop races I/O, shutdown, timers, or receives with
 
 | Operation in a `select!` loop | Progress if another branch wins | Safer pattern |
 |---|---|---|
-| `read` / `read_buf` | Cancellation-safe for one read attempt | Keep returned bytes in a buffer owned by the loop. |
+| `read` / `read_buf` | Cancellation-safe for one read attempt | Append returned bytes to loop-owned storage. |
 | `read_exact` | May consume part of the stream; the helper may not return how much | Read incrementally into persistent framing state. |
 | `write` / `write_buf` | Cancellation-safe for one attempt; completion reports a byte count | Keep the frame and offset outside the branch; advance only by the returned count. |
-| `write_all` | May have written a prefix; a retry starts at the original buffer's start | Resume from a saved offset or keep one operation future alive. |
+| `write_all` | May have written a prefix; a retry restarts at byte zero | Resume from a saved offset or keep one operation future alive. |
 | `write_all_buf` | May write a prefix; the supplied `Buf` advances by the bytes written | Retain and resume that same buffer; do not rebuild it from the original payload. |
 | `flush` | Cancellation-safe; buffered data may be partially flushed and the writer's buffer advances | Re-poll `flush` on the same writer; this does not prove peer receipt. |
 
@@ -22,7 +22,7 @@ description: Use when a Tokio loop races I/O, shutdown, timers, or receives with
 
 1. Inspect every method and wrapper; an async helper may add non-safe awaits.
 2. For framed reads, append completed `read`/`read_buf` results to loop-owned storage, parse complete frames, and retain the incomplete suffix. Bound the buffer; treat EOF with an unfinished frame as truncation.
-3. Keep frame and offset in the owner. Write its unsent suffix, reject zero as `WriteZero`, then advance by `n`. Never retry canceled `write_all` from zero on a stream.
+3. Keep frame and offset in the owner. Resume only with the same frame and offset. Write its unsent suffix, reject zero as `WriteZero`, then advance by `n`. Never retry canceled `write_all` from zero on a stream.
 4. For must-finish work, pin one future and poll `&mut future` across selects, or use one owner task. Dropping the owner still drops its state.
 
 ```rust
