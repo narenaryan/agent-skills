@@ -56,7 +56,7 @@ https://github.com/narenaryan/agent-skills
 | [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
 | [python](skills/python/)               | 4  | 0 | Advanced Python runtime semantics and scaling regression tests |
 | [sales](skills/sales/)                 | 3  | 0 | B2B qualification, buyer-owned decision plans, and controlled commercial negotiation |
-| [rust](skills/rust/)                   | 6  | 0 | Compile-time invariants, runtime safety, deterministic concurrency tests, regex contracts, actor delivery, and typed error identity |
+| [rust](skills/rust/)                   | 7  | 0 | Compile-time invariants, runtime safety, concurrency tests, regex contracts, actor delivery, cancellation safety, and typed errors |
 | [ui](skills/ui/)                       | 3  | 0 | UI flows, navigation, forms, validation, scroll regions, and interaction patterns |
 | [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
 
@@ -76,7 +76,7 @@ The [security collection](skills/security/README.md) follows the evidence-to-dec
 
 [The Rust research companion](sources/rust-research.json) distinguishes Andrew Gallant's and Alice Ryhl's technical blogs from David Tolnay's project documentation. Historical articles establish provenance; they are not new-publication alerts. Use the verified feed or documented index fallback and deduplicate against the other registries. This registry addition does not change any scheduled job.
 
-The new Rust fixtures are source-reviewed examples with exact direct dependency pins. Their compiler/runtime validation remains unrun until an already-provisioned Rust environment is available; see each skill's provenance for limits.
+Rust example crates are source-reviewed with exact direct dependency pins, but compiler/runtime validation remains unrun until an already-provisioned Rust environment is available. The Tokio cancellation-safety skill is documentation-only and has no fixture; see each skill's provenance for limits.
 
 ## Installer options
 
