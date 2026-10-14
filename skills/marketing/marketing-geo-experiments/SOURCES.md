@@ -1,0 +1,21 @@
+# Marketing geo experiments: provenance and validation
+
+Reviewed 2026-10-14. This addition translates primary design sources into a decision workflow. The example is hypothetical; no campaign was launched, changed, or analyzed, and no business lift is claimed.
+
+## Primary sources
+
+- [Vaver and Koehler, Measuring Ad Effectiveness Using Geo Experiments](https://research.google/pubs/measuring-ad-effectiveness-using-geo-experiments/), Google, 2011. The primary abstract describes non-overlapping geographic regions randomly assigned to treatment/control. The linked PDF redirected to an inaccessible Google host, so the abstract was reviewed, not the complete report. This source supports the basic randomized-design definition, not a current platform guarantee.
+- [Chen, Longfils, and Remy, Trimmed Match Design for Randomized Paired Geo Experiments](https://arxiv.org/abs/2105.07060), arXiv v2 dated 2021-05-19; Google Research lists 2021. Full HTML reviewed, especially §§1, 3, and 4. It describes small geo counts, heterogeneity, travel spillovers, budget-induced dependence, and pre-period cross-validation so matching and power analysis do not overfit the same period. Its estimator is not required or implemented here.
+- [Chen and Au, Robust Causal Inference for Incremental Return on Ad Spend with Randomized Paired Geo Experiments](https://arxiv.org/abs/1908.02922), arXiv v3 revised 2021-06-06; journal reference: Annals of Applied Statistics (2022). Abstract/introduction/background reviewed. It explains that platform allocation under geo-level budget constraints may move spend among geos, creating interference. No particular estimator is reproduced here.
+- [Meta GeoLift methodology](https://facebookincubator.github.io/GeoLift/docs/Methodology/) and [walkthrough](https://github.com/facebookincubator/GeoLift/blob/main/vignettes/GeoLift_Walkthrough.md). Current repository `DESCRIPTION` read 2026-10-14 identifies GeoLift **2.7.5**. The docs distinguish quasi-experimental synthetic control from randomized assignment and recommend prospective power/market selection. This package version recommends city-or-higher units, at least 25 pre-treatment periods, and over 20 geo-units; these are package-specific recommendations, not universal validity cutoffs.
+- [Google Ads: Implement campaigns for geo experiments](https://support.google.com/google-ads/answer/18073432?hl=en) and [Google Meridian: Implementation of geo testing](https://developers.google.com/meridian/geox/implementation-of-geo-testing). Mutable official documentation accessed 2026-10-14; neither page displayed a version/date. Supports cell-level campaign isolation, budget/spend-leakage checks, regional changes, planning, and conversion lag. Platform-specific steps and durations are not generalized.
+
+## Worked decision and counterexamples
+
+All entities and figures are hypothetical. A media team wants to increase video spend by 30% in 12 of 24 DMAs, using weekly net sales and a four-week conversion cycle. One shared portfolio budget could move spend between treatment and control, so the initial plan fails the isolation gate. Separate cell budgets remove that known path, but simulations on pre-test geo-week data give an MDE of 16%; finance says an 8% lift would change the allocation. The proposed design cannot resolve the decision. Add feasible geos, extend observation without truncating the purchase cycle, or choose another design, then rerun feasibility. If the MDE remains above the decision-relevant effect, do not treat a null as evidence of zero lift.
+
+- A 12-city synthetic control selected after seeing post-test outcomes, or with poor pre-period fit, is not repaired by a small p-value.
+- If a neighboring control receives treatment ads through cross-border delivery, disclose the leak and qualify or invalidate the planned contrast; do not silently drop the market after seeing sales.
+- A +4% estimate with an interval spanning zero is inconclusive, not proof the channel has no effect.
+
+These checks validate decision-rule consistency only. They are not simulated statistical power, estimator calibration, production measurement, or evidence of marketing effectiveness. No software was installed or executed.
