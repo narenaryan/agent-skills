@@ -11,7 +11,7 @@ Commit domain state and its event record in one local database transaction. The 
 
 1. In one transaction, update the domain row and insert an immutable event row; rollback must leave neither visible. Include stable event ID, aggregate type/ID, event type, and payload. If order matters, allocate the per-aggregate sequence with the aggregate update, not a timestamp.
 2. Polling needs indexed scans, backoff, and safe claims. After its initial snapshot, CDC avoids repeated scans but adds log retention, offsets, snapshots, and connector operations. Debezium PostgreSQL slots retain WAL during outages and can consume disk. Test restart and backlog recovery.
-3. Keep event fields immutable; polling state is separate. A poller advances or deletes only after broker acknowledgement; a crash before checkpoint duplicates. CDC replays from offsets; retain rows and WAL through connector capture and recovery.
+3. Keep event fields immutable; polling state is separate. A poller advances or deletes only after broker acknowledgement; a crash after broker acknowledgement but before checkpoint duplicates. CDC replays from offsets; retain rows and WAL through connector capture and recovery.
 4. If order matters, use aggregate ID as Kafka key with a stable key-based partitioner and unchanged partition count. Matching keys share a partition; Kafka preserves its append order, not end-to-end order across parallel relays or consumer effects. Enforce next sequence and serialize per aggregate on publish and apply, or reject/retry gaps. IDs and timestamps do not prove commit order.
 
 Example: order 781 emits `OrderPlaced` as `E`/sequence 14; every retry keeps both values.
