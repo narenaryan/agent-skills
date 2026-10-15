@@ -20,7 +20,7 @@ Example: order 781 emits `OrderPlaced` as `E`/sequence 14; every retry keeps bot
 
 Use a durable unique `(consumer_name, event_id)` key. In one consumer DB transaction, insert the key and apply the effect only if the claim wins; a duplicate is a no-op. Commit DB before Kafka offset commit or other broker ack. If the effect fails, roll back the marker; redelivery after commit is safe. For external effects, an outbox makes dispatch durable; the receiver still needs idempotency or reconciliation.
 
-Retain source outbox/WAL through connector recovery. Set broker-topic retention separately for consumer replay/audit; archive IDs and sequences if older replay is promised. Deleting delivered rows removes that replay source; name the authoritative archive and expiry.
+Retain source outbox/WAL through connector recovery. Keep consumer dedup markers at least as long as the maximum supported redelivery/replay horizon; purging sooner can repeat effects. Set broker-topic retention separately for replay/audit; archive IDs and sequences if older replay is promised. Deleting delivered rows removes that replay source; name the authoritative archive and expiry.
 
 Sources: [AWS transactional-outbox guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html); [AWS saga guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-patterns.html); [Debezium Outbox Event Router](https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html); [Debezium PostgreSQL connector](https://debezium.io/documentation/reference/stable/connectors/postgresql.html); [Kafka 4.2 design docs](https://kafka.apache.org/42/documentation/).
 
