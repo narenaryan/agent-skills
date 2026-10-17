@@ -11,6 +11,8 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 - **[compressed-ndjson-boundaries](compressed-ndjson-boundaries/SKILL.md)** - preserve record boundaries through zstd decompression, cap memory growth, reject truncated streams, and respect simdjson lifetimes.
 
+- **[transactional-outbox-delivery](transactional-outbox-delivery/SKILL.md)** - keep domain writes and event rows atomic, make relay retries safe, and preserve aggregate order with idempotent consumers.
+
 ## Install
 
 ```bash
@@ -20,4 +22,5 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 ./install.sh macos-disk-space-recovery    # install one
 ./install.sh modularize-large-files       # install one
 ./install.sh compressed-ndjson-boundaries # install one
+./install.sh transactional-outbox-delivery # install one
 ```
