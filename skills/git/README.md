@@ -1,6 +1,6 @@
 # git skills
 
-Advanced git workflows distilled into small, focused skills. Each one targets a specific scenario — conflicts, recovery, history rewrites — so Claude pulls in only the relevant knowledge.
+Advanced version-control workflows distilled into small, focused skills. Each one targets a specific scenario — conflicts, recovery, history rewrites, stacked changes — so Claude pulls in only the relevant knowledge.
 
 ## Skills
 
@@ -15,6 +15,7 @@ Advanced git workflows distilled into small, focused skills. Each one targets a 
 - **[git-rewriting-history](git-rewriting-history/SKILL.md)** — editing past commits: amending, splitting, squashing, reordering, dropping, or bulk-rewriting history with interactive rebase or filter-repo.
 - **[git-submodules](git-submodules/SKILL.md)** — cloning, updating, pinning a branch, pushing safely, branch switching that adds/removes submodules, or resolving submodule conflicts.
 - **[git-worktrees](git-worktrees/SKILL.md)** — multiple checked-out branches simultaneously without re-cloning. Review a PR while keeping WIP, per-branch build caches, hotfix alongside feature work.
+- **[sapling-stacked-pr-workflow](sapling-stacked-pr-workflow/SKILL.md)** — safely editing a lower Sapling commit, restacking descendants, recovering local graph changes, and choosing a GitHub PR shape. See [sources and validation limits](sapling-stacked-pr-workflow/SOURCES.md).
 
 ## Install
 
