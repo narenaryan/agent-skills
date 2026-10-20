@@ -51,7 +51,7 @@ https://github.com/narenaryan/agent-skills
 | [marketing](skills/marketing/) | Evidence-led positioning, causal campaign measurement, sample-ratio diagnostics, and cohort-aware funnel diagnosis |
 | [engineering](skills/engineering/) | Minimal evidence for tests, debugging, validating patch reproducers, AI bug patterns, metrics, docs, root cause, macOS disk recovery, splitting large files into modules, bounded compressed NDJSON ingestion, and transactional outbox delivery |
 | [security](skills/security/) | Risk-based vulnerability evidence, triage, guarded remediation, IAM policy replay, governance, AI evaluation, security gates, container patching and DNSSEC diagnostics |
-| [git](skills/git/) | Advanced Git and Sapling workflows: history, recovery, stacked PRs, and commit conventions |
+| [git](skills/git/) | Advanced Git and Sapling workflows: history, recovery, stacked PRs, hook visibility, and commit conventions |
 | [github](skills/github/) | GitHub operational workflows and npm publishing |
 | [go](skills/go/) | Practical Go engineering patterns |
 | [python](skills/python/) | Advanced Python runtime semantics and scaling regression tests |

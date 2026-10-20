@@ -1,20 +1,36 @@
 ---
 name: git-hooks
-description: Use when writing, debugging, or configuring git hooks (pre-commit, commit-msg, pre-push, pre-receive, etc.) — covers firing order, arguments, exit-code effects, and core.hooksPath for team distribution
+description: Use when hooks are unexpected, missing, or misconfigured; covers effective paths, visibility, lifecycle, bypasses, and checkout scope
 ---
 
 # Git Hooks
 
-Executables in `.git/hooks/` (or `core.hooksPath`) named for the event. Non-zero exit **aborts** (except `post-*`). Any language; must be `+x`, no extension.
+Hooks run on named Git events from the effective path. Git ignores non-executable files; failed pre-hooks abort, post-hooks do not.
+
+## Locate the effective hooks
+
+~~~bash
+git rev-parse --git-path hooks
+git rev-parse --git-common-dir
+git config --show-origin --get core.hooksPath
+~~~
+
+--git-path hooks resolves the path: $GIT_DIR/hooks normally, $GIT_COMMON_DIR/hooks in linked worktrees. Relative core.hooksPath follows hook cwd (non-bare clients: worktree root; bare/receive: $GIT_DIR).
 
 ## Distribution
 
-`.git/hooks/*` is **not** cloned. Use a tracked dir:
+Clones omit source `.git/hooks`; templates can seed hooks and `core.hooksPath` can redirect to shared/global hooks. After reviewing and trusting the scripts, use a tracked directory:
 ```bash
 git config core.hooksPath .githooks
 git commit --no-verify          # bypass pre-commit + commit-msg
 git push --no-verify            # bypass pre-push
 ```
+
+## Visibility and checkout scope
+
+- A custom zsh chpwd function can list executable non-.sample hooks once per path; call it at shell startup too, and avoid alert fatigue.
+- A .pre-commit-config.yaml declares checks, not an installed hook. Installer-marker checks miss custom wrappers.
+- Sharing a working copy can bring active .git metadata. Linked worktrees share common-dir hooks; see [Git worktrees](../git-worktrees/SKILL.md).
 
 ## Client-Side
 
@@ -45,17 +61,14 @@ Patch flow (`git am`): `applypatch-msg` → `pre-applypatch` → `post-applypatc
 
 `update` is the granular gatekeeper: protect branches, reject non-FF on main, require signed commits.
 
-## Debugging
-
-```bash
-GIT_TRACE=1 git commit
-bash -x .git/hooks/pre-commit
-```
-
-Hooks reading stdin (`pre-push`, `pre-receive`) **must consume it** — forgetting silently deadlocks on large pushes.
+`pre-push` and `pre-receive` receive ref-update records on stdin; read them when validating refs.
 
 ## Pitfalls
 
-- Use `set -euo pipefail` in shell hooks; otherwise silent pass on pipeline failure.
+- For Bash hooks, use `set -euo pipefail`; POSIX sh lacks `pipefail`.
 - `core.hooksPath` **replaces** the default dir; copy any needed defaults in.
-- Client hooks are advisory — never rely on them for security. Enforce server-side or in CI.
+- Client hooks are advisory; enforce security server-side or in CI.
+- Prompt listings are visibility aids, not hook validation or enforcement.
+
+See [source and validation notes](SOURCES.md).
+
