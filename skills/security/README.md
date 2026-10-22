@@ -4,7 +4,7 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 
 ## Skills
 
-- **[container-image-patching](container-image-patching/SKILL.md)** - scan Dockerfiles or images with Trivy, upgrade only fixed vulnerable packages, enforce a 20% image-size gate, and publish `-cve-patched` images.
+- **[container-image-patching](container-image-patching/SKILL.md)** - compare immutable image evidence, route fixes by package provenance, and verify targeted changes without mistaking filtered findings for remediation.
 
 - **[dnssec-sentinel-diagnostics](dnssec-sentinel-diagnostics/SKILL.md)** - distinguish trusted-key sentinel patterns from unsupported queries, failed controls, and mixed resolver paths.
 

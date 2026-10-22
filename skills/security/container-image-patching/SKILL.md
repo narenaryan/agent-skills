@@ -1,63 +1,45 @@
 ---
 name: container-image-patching
-description: Use when asked to patch Docker or OCI container image vulnerabilities from a Dockerfile or existing image - scans with Trivy, upgrades only fixed vulnerable OS packages, enforces image-size limits, and retags patched images with cve-patched
+description: Use when patching a Docker or OCI image, a Trivy finding disappears after rebuilding, or before/after scan results disagree about whether a package was fixed.
 ---
 
 # Container Image Patching
 
-Patch container CVEs surgically. Upgrade only packages that Trivy reports as HIGH/CRITICAL with available fixes; avoid broad distro upgrades or unnecessary base-image changes.
+A disappearing finding is not a demonstrated patch. Compare immutable artifacts under equivalent detection conditions, then prove the installed component changed.
 
-## When to Use
+## Evidence contract
 
-Use for Dockerfile or image inputs when reducing Trivy-reported HIGH/CRITICAL vulnerabilities while preserving runtime behavior and image size. The examples assume Debian/Ubuntu `apt-get`; adapt only the package-manager command for non-apt images.
+| Preserve | Why |
+|---|---|
+| Manifest digests and platform | Tags and other architectures are not the tested artifact |
+| Scanner version, database identity/time, effective configuration | Detector changes can create an apparent fix |
+| Target/path, package source, installed release, advisory | One CVE can affect multiple independently installed copies |
+| Logs, inventory, exclusions and suppressions | Empty findings do not establish complete coverage |
 
-## Workflow
+## Recipe
 
-1. Identify the input:
-   - Dockerfile: build a local source image first, for example `docker build -t app:scan-source -f Dockerfile .`.
-   - Existing image: pull or inspect it directly, for example `docker pull python:3.12`.
-2. Ensure Trivy is installed: macOS `brew install trivy`; Linux use the official Trivy package instructions; Windows `winget install aquasecurity.trivy` or `choco install trivy`.
-3. Capture baseline image size: `docker image inspect IMAGE --format '{{.Size}}'`.
-4. Scan only actionable severities: `trivy image IMAGE --severity HIGH,CRITICAL`.
-5. Record each vulnerable package with a fixed version. Separate findings without fixes.
-6. Patch only the specific packages that have fixes. Add a late Dockerfile layer, or create a temporary patch Dockerfile for image-only input:
+1. Confirm owner, approved image/build environment, scan/build permissions, and rollback. Use provisioned tooling; missing tools require approval, not automatic installation. Builds execute Dockerfile instructions; image scanning may retrieve images/databases. Publishing or deploying needs separate authority.
+2. Resolve the source digest and platform; preserve index-to-platform-manifest mapping for multi-platform images. For local builds, retain the immutable local image ID and build provenance until a manifest exists. Record size using the same measurement method before/after.
+3. Audit configuration, environment, ignore files, VEX and exclusions before collection; JSON still honors filters. Retain these identities and package inventory, then create presentation views. In an approved environment with exported digest reference and platform:
 
-```Dockerfile
-FROM python:3.12
-RUN apt-get update && \
-    apt-get install --only-upgrade -y libssl3t64 && \
-    rm -rf /var/lib/apt/lists/*
+```bash
+: "${IMAGE_REF:?Set the approved digest reference}"
+: "${PLATFORM:?Set the approved OS/architecture}"
+trivy image --scanners vuln --pkg-types os,library --list-all-pkgs \
+  --platform "$PLATFORM" --format json --output before.json \
+  "$IMAGE_REF" 2>before.log && \
+trivy convert --format table --severity HIGH,CRITICAL before.json
 ```
 
-7. Build the patched image with `-cve-patched` appended to the original tag, for example `python:3.12-cve-patched` or `app:scan-source-cve-patched`.
-8. Compare size. The patched image must be no more than 20% larger than the baseline:
-   `patched_size <= baseline_size * 1.20`.
-9. Re-run Trivy on the patched image: `trivy image python:3.12-cve-patched --severity HIGH,CRITICAL`.
-10. Verify every originally fixable HIGH/CRITICAL finding is gone. If new vulnerabilities appear, repeat only targeted upgrades.
+4. Route each component by installation provenance: distro-managed packages use matching vendor releases/backports; language dependencies need their dependency/build workflow. Preserve unfixed findings. HIGH/CRITICAL is a view, not prioritization policy; use [RBVM decisions](../rbvm-priority-decisions/SKILL.md).
+5. Select reviewed fixed releases. For Debian/Ubuntu, `apt-get install --only-upgrade` targets installed packages, but dependency resolution still needs inspection. Simulate in the equivalent build context; reject unapproved removals, downgrades, or collateral changes. Version selection can downgrade. Revalidate before applying; simulation is not a locked transaction. Keep update/install/list-cleanup in one Dockerfile layer; a supported base-image refresh is an alternative requiring its own review.
+6. Scan the candidate with equivalent coverage/configuration and database snapshot; if these changed, rescan both immutable artifacts. Match component instances, not CVE totals. Verify the installed release or verified removal, remaining/new findings, and runtime compatibility tests. Missing/unsupported/EOL coverage or scan failure stays unknown. Route deployment evidence through [verified closure](../rbvm-verified-closure/SKILL.md).
+7. Retain the existing ≤20% size-increase ceiling and `-cve-patched` naming unless the owner approves different policy; neither proves safety. Report digests, package changes, evidence differences, residual findings, tests, and limits.
 
-## Patch Rules
-
-- Use `apt-get install --only-upgrade -y <pkg>` for each package; do not use `upgrade`, `dist-upgrade`, or unconstrained installs.
-- Keep package names exact from Trivy/OS metadata, such as `libssl3t64`.
-- Combine related package upgrades into one cleanup layer.
-- Remove `/var/lib/apt/lists/*` in the same `RUN` instruction.
-- Preserve the application Dockerfile and entrypoint unless a vulnerability fix requires changing them.
-- For non-apt images, upgrade named installed packages only.
-
-## Report Template
-
-Return:
-
-- source image or Dockerfile build tag
-- patched image tag ending in `-cve-patched`
-- packages upgraded and fixed CVEs
-- baseline size, patched size, and percentage increase
-- before/after Trivy summary for HIGH and CRITICAL
-- any remaining HIGH/CRITICAL findings and why they remain
+[Sources and synthetic counterexamples](SOURCES.md); documentation reviewed 2026-10-21. Trivy/Docker commands were not runtime-tested.
 
 ## Pitfalls
 
-- Rebuilding from a newer base image without proving the required package fixes.
-- Running broad upgrades that silently alter many packages and inflate the image.
-- Treating unfixed CVEs as patch failures; separate them from fixable findings.
-- Forgetting the size gate after successful vulnerability cleanup.
+- Trivy normally exits zero even with findings; process success is not a clean verdict.
+- Severity/unfixed/suppression filters can erase evidence without changing installed bytes.
+- Digest pinning prevents silent drift but also requires deliberate security updates.
