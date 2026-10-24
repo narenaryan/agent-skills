@@ -6,6 +6,7 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 - **[minimal-sufficient-evidence](minimal-sufficient-evidence/SKILL.md)** - remove redundant tests and artifacts while preserving the smallest evidence set needed for debugging, regression coverage, metrics, templates, models, and root-cause analysis.
 - **[patch-reproducer-validity](patch-reproducer-validity/SKILL.md)** - prove repaired cases separately from introduced regressions; distinguish pre-existing defects, weak oracles, and incomparable replay evidence. See [sources and validation limits](patch-reproducer-validity/SOURCES.md).
+- **[prompt-cache-boundaries](prompt-cache-boundaries/SKILL.md)** - audit provider-bound Claude prompt prefixes, separate cache diagnostics from actual reuse, and preserve task-quality evidence. See [sources and offline validation limits](prompt-cache-boundaries/SOURCES.md).
 - **[ai-bug-patterns](ai-bug-patterns/SKILL.md)** - review AI-assisted code for silent production failures: broken auth, missing query scope, TOCTOU, idempotency bugs, stale state, validation drift, swallowed errors, and incomplete refactors.
 - **[macos-disk-space-recovery](macos-disk-space-recovery/SKILL.md)** - diagnose low disk space on macOS with APFS-aware measurement, rank real offenders, and remove caches or app data safely while reporting reclaimed space.
 - **[modularize-large-files](modularize-large-files/SKILL.md)** - find files past ~2k lines and split god modules along cohesion seams, preserving the public API with re-exports and verifying tests between each behavior-preserving extraction.
@@ -25,4 +26,5 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 ./install.sh compressed-ndjson-boundaries # install one
 ./install.sh transactional-outbox-delivery # install one
 ./install.sh patch-reproducer-validity     # install one
+./install.sh prompt-cache-boundaries       # install one
 ```
