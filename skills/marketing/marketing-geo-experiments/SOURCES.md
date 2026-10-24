@@ -1,0 +1,21 @@
+# Marketing geo experiments: provenance and validation
+
+Reviewed 2026-10-14. The workflow translates primary design sources into decision rules. Examples are hypothetical; no campaign was launched, changed, or analyzed, and no business lift is claimed.
+
+## Primary sources
+
+- [Vaver and Koehler, Measuring Ad Effectiveness Using Geo Experiments](https://research.google/pubs/measuring-ad-effectiveness-using-geo-experiments/), Google, 2011. The abstract describes non-overlapping regions randomly assigned to treatment/control. The publisher download redirected to a CAPTCHA for this reader; an independent reviewer opened the official [archive PDF](https://research.google.com/pubs/archive/38355.pdf). Supports randomized-design terminology, not a current platform guarantee.
+- [Chen, Longfils, and Remy, Trimmed Match Design for Randomized Paired Geo Experiments](https://arxiv.org/abs/2105.07060), arXiv v2, 2021-05-19; Google Research lists 2021. Full HTML reviewed, especially §§1, 3, and 4. It describes small geo counts, heterogeneity, spillovers, budget-induced dependence, and separate pre-periods for matching and power analysis. This workflow does not reproduce its estimator.
+- [Chen and Au, Robust Causal Inference for Incremental Return on Ad Spend with Randomized Paired Geo Experiments](https://doi.org/10.1214/21-AOAS1493), Annals of Applied Statistics 16(1) (2022), 1–20; author manuscript [arXiv v3](https://arxiv.org/abs/1908.02922), revised 2021-06-06. Full HTML reviewed. It explains how geo budget constraints can move spend among geos and create interference. No estimator is reproduced here.
+- [Meta GeoLift DESCRIPTION](https://github.com/facebookincubator/GeoLift/blob/main/DESCRIPTION) and [CHANGELOG](https://github.com/facebookincubator/GeoLift/blob/main/CHANGELOG): DESCRIPTION listed version 2.7.5; CHANGELOG dates its release 2026-01-09. Both read 2026-10-14. DESCRIPTION recommends cities or higher, at least 25 pre-treatment periods, and over 20 geos. Its separate [Best Practices](https://facebookincubator.github.io/GeoLift/docs/Best%20Practices/BestPractices/) page says use the highest targetable granularity and 20 or more geos. These are package recommendations, not universal validity cutoffs. The [walkthrough](https://github.com/facebookincubator/GeoLift/blob/main/vignettes/GeoLift_Walkthrough.md) uses simulated data, not empirical lift evidence.
+- [Google Ads: Implement campaigns for geo experiments](https://support.google.com/google-ads/answer/18073432?hl=en), accessed 2026-10-14; page displays no date. It covers holdback, go-dark, heavy-up, cell isolation, spend leakage, and regional changes. [Google Meridian: Implementation of geo testing](https://developers.google.com/meridian/geox/implementation-of-geo-testing), last updated 2026-09-01 UTC, accessed 2026-10-14. It recommends a preselected primary KPI, suitable test duration, conversion-lag allowance, stable campaigns, and careful geo-grain choice. These are platform-specific implementation notes, not universal durations.
+
+## Worked decision and counterexamples
+
+All entities and figures are hypothetical. A media team plans to increase video spend by 30% in 12 of 24 DMAs, using weekly net sales and a four-week conversion cycle. One shared portfolio budget could move spend between treatment and control, so the plan fails the isolation gate. Separate cell budgets remove that known path, but pre-test simulations give a 16% MDE; finance says an 8% lift would change allocation. The design cannot resolve the decision. Add feasible geos, extend observation without truncating the purchase cycle, or choose another design, then rerun feasibility. If MDE remains above the decision effect, do not treat a null as evidence of zero lift.
+
+- A 12-city synthetic control selected after observing outcomes or with poor pre-fit is not repaired by a small p-value.
+- If a neighboring control receives treatment ads, disclose the leak and qualify or invalidate the contrast; do not silently drop the market after seeing sales.
+- A +4% estimate with an interval spanning zero is inconclusive, not proof the channel has no effect.
+
+These checks validate decision-rule consistency only. They are not statistical-power simulations, estimator calibration, production measurement, or evidence of marketing effectiveness. No software was installed or executed.
