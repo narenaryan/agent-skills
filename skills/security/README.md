@@ -10,7 +10,7 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 
 
 - **[rbvm-asset-evidence](rbvm-asset-evidence/SKILL.md)** - reconcile identity, freshness and observation coverage without merging unrelated assets.
-- **[rbvm-applicability](rbvm-applicability/SKILL.md)** - distinguish package matches, ecosystem versions, backports and scoped VEX evidence.
+- **[rbvm-applicability](rbvm-applicability/SKILL.md)** - distinguish package matches, backports and scoped VEX evidence; invalidate stale conclusions after advisory revisions or withdrawals.
 - **[rbvm-priority-decisions](rbvm-priority-decisions/SKILL.md)** - combine exploitation evidence and local impact into explainable decisions rather than uncalibrated score arithmetic.
 - **[rbvm-guarded-remediation](rbvm-guarded-remediation/SKILL.md)** - revalidate state, resolve owners, bound retries and preserve approved action scope.
 - **[rbvm-risk-exceptions](rbvm-risk-exceptions/SKILL.md)** - keep accepted risk scoped, owned, expiring and subject to evidence-triggered review.
