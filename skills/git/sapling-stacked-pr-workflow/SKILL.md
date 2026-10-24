@@ -1,0 +1,34 @@
+---
+name: sapling-stacked-pr-workflow
+description: Use when Sapling's `sl` needs an older stacked commit amended, a restack conflicts or orphans children, or GitHub stack PR diffs overlap unexpectedly
+---
+
+# Repair and Review Sapling Stacks
+
+Sapling replaces amended commits; descendants restack or orphan on conflicts. Review edits in Smartlog (`sl`).
+
+## Edit a lower commit
+
+1. Run `sl` and `sl status`. Confirm `@`, target, and pending files. Unlike Git's index, `sl amend` includes all pending changes by default.
+2. At stack top, preview with `sl absorb --dry-run`, then inspect `sl absorb` targets before confirming. Accept only unambiguous chunks; unmatched changes stay pending. Absorbing can restack descendants and delete empty commits.
+3. For a new file or ambiguous change, run `sl addremove` if needed, then `sl amend --to REV` with the intended target. Or `sl goto REV` before amending. Confirm only intended files are pending.
+4. Inspect `sl` after edit. If children are orphaned, run `sl restack`; resolve conflicts then `sl rebase --continue`, or `sl rebase --abort` if unsafe. Verify graph and tests before publishing.
+
+## Recover a mistaken edit
+
+- `sl undo` restores the graph before the last graph operation; `sl redo` reverses that undo. It does not restore working-copy edits or retract remote publication.
+- Use `sl unamend` on a draft leaf whose predecessor has matching parents; the delta becomes pending. Use `sl uncommit` on a mistaken draft leaf when no changes are pending.
+- Inspect an earlier version with `sl log -r "predecessors(REV)"`, replacing `REV` with the target; inspect a candidate via `sl show` before `sl unhide`.
+
+## Choose the GitHub review shape
+
+Use only already-authorized GitHub credentials. Sapling needs a PAT; docs recommend `gh auth login --git-protocol https`. If absent, ask the owner to configure credentials; never create or broaden them. Check `sl ssl` and `default` / `default-push`. Get owner authorization before remote changes: `sl pr submit --stack`, `sl push --to remote/my-feature`, or creating a GitHub PR. Stacked PRs include draft ancestors and all lower commits, so GitHub diffs overlap; use ReviewStack where supported. Branch-based PRs use one branch per review. `sl push -f` force-updates a branch; require explicit owner approval and follow team policy.
+
+## Pitfalls
+
+- Amend changes commit IDs. Follow Smartlog, not stale hashes.
+- `sl unhide` also reveals ancestors. Local undo/hide does not retract a pushed commit or close/update its PR.
+- Release 0.2.20260929 asks before `goto` of an obsolete commit or committing atop one; `HGPLAIN=1` retains old script behavior. Don't bypass the interactive prompt.
+- For `.github/workflows` PRs, default `gh` scopes lack `workflow`; `sl pr submit` may create/update the PR, then abort on its archive-branch update. Check GitHub; stop and ask the owner to approve `gh auth refresh -s workflow` before expanding scope or retrying.
+
+See [SOURCES.md](SOURCES.md) for official references, version scope, and validation limits.

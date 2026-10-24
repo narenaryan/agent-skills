@@ -4,13 +4,13 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 
 ## Skills
 
-- **[container-image-patching](container-image-patching/SKILL.md)** - scan Dockerfiles or images with Trivy, upgrade only fixed vulnerable packages, enforce a 20% image-size gate, and publish `-cve-patched` images.
+- **[container-image-patching](container-image-patching/SKILL.md)** - compare immutable image evidence, route fixes by package provenance, and verify targeted changes without mistaking filtered findings for remediation.
 
 - **[dnssec-sentinel-diagnostics](dnssec-sentinel-diagnostics/SKILL.md)** - distinguish trusted-key sentinel patterns from unsupported queries, failed controls, and mixed resolver paths.
 
 
 - **[rbvm-asset-evidence](rbvm-asset-evidence/SKILL.md)** - reconcile identity, freshness and observation coverage without merging unrelated assets.
-- **[rbvm-applicability](rbvm-applicability/SKILL.md)** - distinguish package matches, ecosystem versions, backports and scoped VEX evidence.
+- **[rbvm-applicability](rbvm-applicability/SKILL.md)** - distinguish package matches, backports and scoped VEX evidence; invalidate stale conclusions after advisory revisions or withdrawals.
 - **[rbvm-priority-decisions](rbvm-priority-decisions/SKILL.md)** - combine exploitation evidence and local impact into explainable decisions rather than uncalibrated score arithmetic.
 - **[rbvm-guarded-remediation](rbvm-guarded-remediation/SKILL.md)** - revalidate state, resolve owners, bound retries and preserve approved action scope.
 - **[rbvm-risk-exceptions](rbvm-risk-exceptions/SKILL.md)** - keep accepted risk scoped, owned, expiring and subject to evidence-triggered review.
@@ -20,16 +20,19 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 
 - **[iam-policy-change-replay](iam-policy-change-replay/SKILL.md)** - compare current/candidate authorization per resource, preserving required access and rejecting incomplete replay evidence.
 
+- **[dependency-artifact-integrity](dependency-artifact-integrity/SKILL.md)** - separate lock resolution from trusted artifact verification and demonstrate mismatch rejection before package execution.
+
 ## Use together
 
 Start with identity and applicability, then prioritize. Guarded remediation and risk exceptions describe alternate dispositions; verified closure requires independent evidence afterward. Security gates prevent new debt; AI evaluation checks proposed automation. Reuse [container-image-patching](container-image-patching/SKILL.md) for the narrow patch recipe and [AI bug patterns](../engineering/ai-bug-patterns/SKILL.md) for implementation review. These skills do not grant permission to change production systems.
 
-Each new skill links provenance, worked counterexamples, and offline standard-library fixtures. Passing those fixtures is not a production, scanner-engine, Kubernetes, or LLM benchmark result.
+Each new skill links provenance, worked counterexamples, and offline fixtures. Passing those fixtures is not a production, scanner-engine, Kubernetes, or LLM benchmark result.
 
 ## Install
 
 ```bash
 ./install.sh security                 # install all
 ./install.sh container-image-patching # install one
+./install.sh dependency-artifact-integrity # install one
 ```
 

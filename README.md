@@ -45,20 +45,21 @@ https://github.com/narenaryan/agent-skills
 
 ## Categories
 
-| Category        | Skills | Commands | Description                            |
-|-----------------|--------|----------|----------------------------------------|
-| [database](skills/database/)           | 1  | 0 | PostgreSQL locking joins, statement snapshots, and concurrency-safe reads |
-| [marketing](skills/marketing/)         | 4  | 0 | Evidence-led positioning, causal campaign measurement, sample-ratio diagnostics, cohort-aware funnel diagnosis, and geo-experiment design |
-| [engineering](skills/engineering/)       | 5  | 0 | Minimal evidence for tests, debugging, AI bug patterns, metrics, docs, root cause, macOS disk recovery, splitting large files into modules, and bounded compressed NDJSON ingestion |
-| [security](skills/security/)           | 11 | 0 | Risk-based vulnerability evidence, triage, guarded remediation, IAM policy replay, governance, AI evaluation, security gates, container patching and DNSSEC diagnostics |
-| [git](skills/git/)                     | 11 | 0 | Advanced git workflows and commit conventions |
-| [github](skills/github/)               | 2  | 0 | GitHub operational workflows and npm publishing |
-| [go](skills/go/)                       | 5  | 0 | Practical Go engineering patterns      |
-| [python](skills/python/)               | 4  | 0 | Advanced Python runtime semantics and scaling regression tests |
-| [sales](skills/sales/)                 | 3  | 0 | B2B qualification, buyer-owned decision plans, and controlled commercial negotiation |
-| [rust](skills/rust/)                   | 6  | 0 | Compile-time invariants, runtime safety, deterministic concurrency tests, regex contracts, actor delivery, and typed error identity |
-| [ui](skills/ui/)                       | 3  | 0 | UI flows, navigation, forms, validation, scroll regions, and interaction patterns |
-| [skill-creator](commands/skill-creator/) | 0  | 1 | Turn docs into concise global skills   |
+| Category | Description |
+|----------|-------------|
+| [database](skills/database/) | PostgreSQL locking joins, statement snapshots, and concurrency-safe reads |
+| [marketing](skills/marketing/) | Evidence-led positioning, causal campaign measurement, sample-ratio diagnostics, and cohort-aware funnel diagnosis |
+| [engineering](skills/engineering/) | Minimal evidence for tests, debugging, validating patch reproducers, prompt-cache boundaries, AI bug patterns, metrics, docs, root cause, macOS disk recovery, splitting large files into modules, bounded compressed NDJSON ingestion, and transactional outbox delivery |
+| [security](skills/security/) | Risk-based vulnerability evidence, triage, guarded remediation, IAM policy replay, governance, AI evaluation, security gates, dependency artifact integrity, container patching and DNSSEC diagnostics |
+| [git](skills/git/) | Advanced Git and Sapling workflows: history, recovery, stacked PRs, hook visibility, and commit conventions |
+| [github](skills/github/) | GitHub operational workflows and npm publishing |
+| [go](skills/go/) | Practical Go engineering patterns |
+| [python](skills/python/) | Advanced Python runtime semantics and scaling regression tests |
+| [sales](skills/sales/) | B2B qualification, buyer-owned decision plans, commercial negotiation, and pipeline probability calibration |
+| [rust](skills/rust/) | Compile-time invariants, runtime safety, deterministic concurrency tests, regex contracts, actor delivery, and typed error identity |
+| [ui](skills/ui/) | UI flows, navigation, forms, validation, scroll regions, and interaction patterns |
+| [skill-creator](commands/skill-creator/) | Turn docs into concise global skills |
+
 
 ## Engineering blog sources
 
@@ -76,7 +77,7 @@ The [security collection](skills/security/README.md) follows the evidence-to-dec
 
 [The Rust research companion](sources/rust-research.json) distinguishes Andrew Gallant's and Alice Ryhl's technical blogs from David Tolnay's project documentation. Historical articles establish provenance; they are not new-publication alerts. Use the verified feed or documented index fallback and deduplicate against the other registries. This registry addition does not change any scheduled job.
 
-The new Rust fixtures are source-reviewed examples with exact direct dependency pins. Their compiler/runtime validation remains unrun until an already-provisioned Rust environment is available; see each skill's provenance for limits.
+Rust example crates are source-reviewed with exact direct dependency pins, but compiler/runtime validation remains unrun until an already-provisioned Rust environment is available. The Tokio cancellation-safety skill is documentation-only and has no fixture; see each skill's provenance for limits.
 
 ## Installer options
 
