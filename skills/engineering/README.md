@@ -15,6 +15,8 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 - **[transactional-outbox-delivery](transactional-outbox-delivery/SKILL.md)** - keep domain writes and event rows atomic, make relay retries safe, and preserve aggregate order with idempotent consumers.
 
+- **[http-resume-integrity](http-resume-integrity/SKILL.md)** - prevent mixed-version bytes in resumed downloads with representation-bound checkpoints, strict response gates, and staged commits. See [sources and offline validation limits](http-resume-integrity/SOURCES.md).
+
 ## Install
 
 ```bash
@@ -27,4 +29,5 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 ./install.sh transactional-outbox-delivery # install one
 ./install.sh patch-reproducer-validity     # install one
 ./install.sh prompt-cache-boundaries       # install one
+./install.sh http-resume-integrity          # install one
 ```
