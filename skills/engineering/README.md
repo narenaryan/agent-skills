@@ -15,6 +15,8 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 - **[transactional-outbox-delivery](transactional-outbox-delivery/SKILL.md)** - keep domain writes and event rows atomic, make relay retries safe, and preserve aggregate order with idempotent consumers.
 
+- **[linux-io-latency-triage](linux-io-latency-triage/SKILL.md)** - distinguish OS queueing from issued-request latency, check trace coverage, and avoid false NVMe saturation or writeback attribution. See [sources and scenario-test limits](linux-io-latency-triage/SOURCES.md).
+
 ## Install
 
 ```bash
