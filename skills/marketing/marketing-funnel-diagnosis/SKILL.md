@@ -1,6 +1,6 @@
 ---
 name: marketing-funnel-diagnosis
-description: Use when conversion falls, acquisition channels disagree, or a funnel dashboard suggests a bottleneck before measurement, cohort maturity, and traffic mix have been checked.
+description: Use when conversion falls, acquisition channels disagree, organic landing pages disappear, or a funnel dashboard suggests a bottleneck before measurement, cohort maturity, and traffic mix have been checked.
 ---
 
 # Marketing Funnel Diagnosis
@@ -23,10 +23,27 @@ Record counting unit, entry event, ordered milestones, intervening-event rules, 
 
 Channel A converts at 10%; B at 2%. An 80:20 traffic split yields 8.4% overall; 20:80 yields 3.6%. Reweighting the unchanged rates by the old mix returns 8.4%: no within-channel deterioration.
 
+## Organic-entry branch: canonical evidence
+
+If organic entries fall after a template/release change, inspect discovery before rewriting offers. Canonical declarations express a preferred duplicate/content-superset URL, not a redirect or proof of engine selection.
+
+1. Sample affected and unaffected URLs across templates and search engines. Record final URL/status, response-header canonical, original HTML head, rendered head, crawl/index directives, sitemap/internal-link targets, and capture time. Check whether distinct content accidentally shares one canonical; legitimate duplicates can share one. Derive intended mappings from content, not URL shape alone.
+2. Compare signals: canonical tags should not contradict headers, rendered HTML, redirects, or sitemaps. Verify target content and availability; preserve unavailable evidence as unknown. Do not make every URL self-canonical: genuine duplicates need consolidation.
+3. In authorized Search Console indexed reports, compare user-declared versus Google-selected canonical and last-crawl time. A live test cannot predict selected canonical. A pre-fix crawl cannot establish post-fix recovery.
+4. Propose the smallest template correction, preserving duplicate mappings; test representative outputs. Report separately: configuration corrected, post-fix indexed selection observed, acquisition recovered. Recrawl requests guarantee neither indexing nor recovery time; campaign/production changes need authorization.
+
+Example: two distinct product pages both declare the homepage. A naive “canonical exists” check passes; an intended-mapping check flags both. Correct output removes that defect but does not prove Google adopted it or sales improved. Run the original offline snapshot scenarios from the repository root:
+
+```bash
+python3 skills/marketing/marketing-funnel-diagnosis/reproduce.py
+```
+
 ## Sources and scope
 
 - [Amplitude: funnel interpretation](https://amplitude.com/docs/analytics/charts/funnel-analysis/funnel-analysis-interpret): ordering, windows, entry cohorts, and drop-offs; inspect your own tool's counting semantics.
 - [Microsoft: metric interpretation pitfalls](https://www.microsoft.com/en-us/research/wp-content/uploads/2020/08/2017-08-KDDMetricInterpretationPitfalls.pdf): ratio decomposition and telemetry bias; observational funnels still cannot establish causation.
+
+Canonical evidence references, provenance, and test limits: [SOURCES.md](SOURCES.md).
 
 ## Pitfalls
 
@@ -34,3 +51,4 @@ Channel A converts at 10%; B at 2%. An 80:20 traffic split yields 8.4% overall; 
 - The largest percentage drop may have little recoverable business value.
 - Averaging segment percentages without denominator weights distorts totals.
 - Optimizing a local step can attract worse-fit buyers or shift failures downstream.
+- Do not use `noindex` or robots blocking to force canonical selection; these change indexing/crawling.
