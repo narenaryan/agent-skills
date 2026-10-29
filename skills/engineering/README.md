@@ -4,6 +4,8 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 ## Skills
 
+- **[base64-decoder-contracts](base64-decoder-contracts/SKILL.md)** - distinguish strict and canonical decoding, test malformed-input compatibility, and compare complete decoder workloads before trusting throughput claims.
+
 - **[minimal-sufficient-evidence](minimal-sufficient-evidence/SKILL.md)** - remove redundant tests and artifacts while preserving the smallest evidence set needed for debugging, regression coverage, metrics, templates, models, and root-cause analysis.
 - **[patch-reproducer-validity](patch-reproducer-validity/SKILL.md)** - prove repaired cases separately from introduced regressions; distinguish pre-existing defects, weak oracles, and incomparable replay evidence. See [sources and validation limits](patch-reproducer-validity/SOURCES.md).
 - **[prompt-cache-boundaries](prompt-cache-boundaries/SKILL.md)** - audit provider-bound Claude prompt prefixes, separate cache diagnostics from actual reuse, and preserve task-quality evidence. See [sources and offline validation limits](prompt-cache-boundaries/SOURCES.md).
