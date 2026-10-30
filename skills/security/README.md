@@ -14,7 +14,7 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 - **[rbvm-priority-decisions](rbvm-priority-decisions/SKILL.md)** - combine exploitation evidence and local impact into explainable decisions rather than uncalibrated score arithmetic.
 - **[rbvm-guarded-remediation](rbvm-guarded-remediation/SKILL.md)** - revalidate state, resolve owners, bound retries and preserve approved action scope.
 - **[rbvm-risk-exceptions](rbvm-risk-exceptions/SKILL.md)** - keep accepted risk scoped, owned, expiring and subject to evidence-triggered review.
-- **[rbvm-verified-closure](rbvm-verified-closure/SKILL.md)** - require fresh deployed-artifact evidence before treating remediation as complete.
+- **[rbvm-verified-closure](rbvm-verified-closure/SKILL.md)** - require fresh deployed-state evidence, including retained key holders, before treating remediation as complete.
 - **[security-gate-rollout](security-gate-rollout/SKILL.md)** - distinguish pass, fail and unknown while promoting policy from shadow to bounded enforcement.
 - **[ai-triage-evaluation](ai-triage-evaluation/SKILL.md)** - evaluate legitimate task utility, false dismissals, prompt injection and tool effects independently.
 
