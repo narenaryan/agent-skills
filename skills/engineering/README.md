@@ -4,6 +4,8 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 ## Skills
 
+- **[fixed-key-lookup-contracts](fixed-key-lookup-contracts/SKILL.md)** - verify perfect-hash membership and C++ storage bounds independently before trusting fast string lookup. See [sources and executable validation limits](fixed-key-lookup-contracts/SOURCES.md).
+
 - **[minimal-sufficient-evidence](minimal-sufficient-evidence/SKILL.md)** - remove redundant tests and artifacts while preserving the smallest evidence set needed for debugging, regression coverage, metrics, templates, models, and root-cause analysis.
 - **[patch-reproducer-validity](patch-reproducer-validity/SKILL.md)** - prove repaired cases separately from introduced regressions; distinguish pre-existing defects, weak oracles, and incomparable replay evidence. See [sources and validation limits](patch-reproducer-validity/SOURCES.md).
 - **[prompt-cache-boundaries](prompt-cache-boundaries/SKILL.md)** - audit provider-bound Claude prompt prefixes, separate cache diagnostics from actual reuse, and preserve task-quality evidence. See [sources and offline validation limits](prompt-cache-boundaries/SOURCES.md).
