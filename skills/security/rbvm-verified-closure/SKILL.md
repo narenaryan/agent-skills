@@ -32,6 +32,8 @@ Local fixture: `python3 skills/security/rbvm-verified-closure/scripts/check_clos
 
 Sources: [NIST SP 800-40 Rev. 4 (April 2022), §§2.2(d), 2.3.4](https://nvlpubs.nist.gov/nistpubs/SpecialPublications/NIST.SP.800-40r4.pdf) supports continuous risk-response monitoring (patch removal, vulnerable backup restore, factory reset); cadence is local policy. [Kubernetes Images documentation](https://kubernetes.io/docs/concepts/containers/images/), reviewed 2026-10-12. See [SOURCES.md](SOURCES.md).
 
+For pooled buffers with remote writers, use [distributed buffer retirement](../distributed-buffer-retirement/SKILL.md) to separate rejection, drain acknowledgment, and safe reuse.
+
 ## Pitfalls
 
 - Mutable tags can name different content between build, scan, and rollout.

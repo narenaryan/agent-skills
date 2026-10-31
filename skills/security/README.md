@@ -24,6 +24,8 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 
 - **[tls-trust-path-verification](tls-trust-path-verification/SKILL.md)** - verify trust-policy activation on the actual application TLS path, separating stale contexts, alternate clients, and inconclusive failures.
 
+- **[distributed-buffer-retirement](distributed-buffer-retirement/SKILL.md)** - separate rejected work, remote drain evidence, and safe pooled-buffer reuse across failure paths.
+
 ## Use together
 
 Start with identity and applicability, then prioritize. Guarded remediation and risk exceptions describe alternate dispositions; verified closure requires independent evidence afterward. Security gates prevent new debt; AI evaluation checks proposed automation. Reuse [container-image-patching](container-image-patching/SKILL.md) for the narrow patch recipe and [AI bug patterns](../engineering/ai-bug-patterns/SKILL.md) for implementation review. These skills do not grant permission to change production systems.
