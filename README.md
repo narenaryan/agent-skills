@@ -49,7 +49,7 @@ https://github.com/narenaryan/agent-skills
 |----------|-------------|
 | [database](skills/database/) | PostgreSQL locking joins, statement snapshots, and concurrency-safe reads |
 | [marketing](skills/marketing/) | Evidence-led positioning, causal campaign measurement, sample-ratio diagnostics, and cohort/canonical-aware funnel diagnosis |
-| [engineering](skills/engineering/) | Minimal evidence for tests, debugging, validating patch reproducers, prompt-cache boundaries, AI bug patterns, metrics, docs, root cause, macOS disk recovery, Linux I/O latency triage, splitting large files into modules, bounded compressed NDJSON ingestion, and transactional outbox delivery |
+| [engineering](skills/engineering/) | Minimal evidence for tests, debugging, validating patch reproducers, prompt-cache boundaries, AI bug patterns, metrics, docs, root cause, macOS disk recovery, selective Proton Drive backup, Linux I/O latency triage, splitting large files into modules, bounded compressed NDJSON ingestion, and transactional outbox delivery |
 | [security](skills/security/) | Risk-based vulnerability evidence, triage, guarded remediation, IAM policy replay, governance, AI evaluation, security gates, dependency artifact integrity, container patching, TLS trust-path verification and DNSSEC diagnostics |
 | [git](skills/git/) | Advanced Git and Sapling workflows: history, recovery, stacked PRs, hook visibility, and commit conventions |
 | [github](skills/github/) | GitHub operational workflows and npm publishing |
@@ -105,3 +105,4 @@ Default is copy; use `--link` if you're contributing or want `git pull` on this 
 3. Run `./test.sh` to make sure the installer still works.
 
 Skills should be 300–500 words. If you need more, you probably need to split the skill.
+
