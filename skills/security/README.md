@@ -22,6 +22,8 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 
 - **[dependency-artifact-integrity](dependency-artifact-integrity/SKILL.md)** - separate lock resolution from trusted artifact verification and demonstrate mismatch rejection before package execution.
 
+- **[tls-trust-path-verification](tls-trust-path-verification/SKILL.md)** - verify trust-policy activation on the actual application TLS path, separating stale contexts, alternate clients, and inconclusive failures.
+
 ## Use together
 
 Start with identity and applicability, then prioritize. Guarded remediation and risk exceptions describe alternate dispositions; verified closure requires independent evidence afterward. Security gates prevent new debt; AI evaluation checks proposed automation. Reuse [container-image-patching](container-image-patching/SKILL.md) for the narrow patch recipe and [AI bug patterns](../engineering/ai-bug-patterns/SKILL.md) for implementation review. These skills do not grant permission to change production systems.
