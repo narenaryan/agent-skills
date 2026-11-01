@@ -27,3 +27,10 @@ python3 skills/security/rbvm-asset-evidence/fixture.py
 ```
 
 The stdlib fixture tests an explicitly synthetic freshness/coverage contract: exact boundary, late ingestion, future clock skew, partial collection, missing observation, and naive timestamps. It does not discover assets, implement a provider identity system, test scanner recall, or measure operational coverage.
+
+## Measurement-epoch extension (reviewed 2026-11-01)
+
+- [Cloudflare: 4 real? Tracking exploitation and patching of eMudhra’s weak keys](https://blog.cloudflare.com/emudhra-patching/), published **2026-10-30**, discovered in this research backlog **2026-10-31**, read for this extension **2026-11-01**. The visitor-measurement section describes changed control endpoints/chains, a monitoring rollback gap, sampling changes, and a bot-classification update that resembled patching. Its population is selected challenge-page traffic, not all users. Weak-key handshake observations are not themselves proof of successful interception. This is an incident-specific observed failure mode, not a general performance benchmark.
+- [NIST SP 800-55 Volume 1](https://doi.org/10.6028/NIST.SP.800-55v1), published **December 2024** (final release 2024-12-04), reviewed **2026-11-01** as historical reference backfill, not a new blog article. Sections 3.1.1, 3.1.4 and 3.2 support recording formulas/evidence/time references, validating collection quality, and repeatable measurements.
+
+The epoch contract, same-record transition bridge, and conservative reporting gates are original operational synthesis, not requirements attributed to NIST or Cloudflare. [measurement-epochs.md](measurement-epochs.md) contains original counterexamples and the exact narrow validation scope. It complements asset identity and verified closure rather than granting scanner, remediation, or risk-acceptance authority.
