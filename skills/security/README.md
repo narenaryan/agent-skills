@@ -9,7 +9,7 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 - **[dnssec-sentinel-diagnostics](dnssec-sentinel-diagnostics/SKILL.md)** - distinguish trusted-key sentinel patterns from unsupported queries, failed controls, and mixed resolver paths.
 
 
-- **[rbvm-asset-evidence](rbvm-asset-evidence/SKILL.md)** - reconcile identity, freshness and observation coverage without merging unrelated assets.
+- **[rbvm-asset-evidence](rbvm-asset-evidence/SKILL.md)** - reconcile identity, freshness, coverage and measurement epochs without merging unrelated assets or mistaking reclassification for remediation.
 - **[rbvm-applicability](rbvm-applicability/SKILL.md)** - distinguish package matches, backports and scoped VEX evidence; invalidate stale conclusions after advisory revisions or withdrawals.
 - **[rbvm-priority-decisions](rbvm-priority-decisions/SKILL.md)** - combine exploitation evidence and local impact into explainable decisions rather than uncalibrated score arithmetic.
 - **[rbvm-guarded-remediation](rbvm-guarded-remediation/SKILL.md)** - revalidate state, resolve owners, bound retries and preserve approved action scope.

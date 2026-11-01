@@ -1,6 +1,6 @@
 ---
 name: rbvm-asset-evidence
-description: Use when scanner findings must be joined to ephemeral assets, duplicate hosts, image tags, ownership, or exposure evidence with conflicting timestamps or stale inventory.
+description: Use when scanner findings must be joined to ephemeral assets, duplicate hosts, image tags, ownership, or exposure evidence with conflicting timestamps, stale inventory, or falling finding rates after scanner/classifier changes.
 ---
 
 # RBVM Asset Evidence
@@ -33,6 +33,14 @@ python3 skills/security/rbvm-asset-evidence/fixture.py
 ```
 
 Sources: [Kubernetes object identity](https://kubernetes.io/docs/concepts/overview/working-with-objects/names/) and [OCI descriptor v1.1.1](https://github.com/opencontainers/image-spec/blob/v1.1.1/descriptor.md), reviewed 2026-10-10. Freshness budgets and reconciliation gates are local policy, not standards; details in [SOURCES.md](SOURCES.md).
+
+## Measurement epochs
+
+Before reporting a falling finding rate, version its measurement contract: identity/deduplication rule, eligible population, numerator, denominator, collection window, scanner/database/configuration, and classifier. A changed contract starts a new epoch, not a remediation success.
+
+Replay old and new classifiers against the **same retained observations** when inputs permit; tabulate label transitions and failures. This isolates reclassification on those records, not population-wide patching. Changed probes, missing inputs, or collection gaps cannot be repaired by relabeling: mark the series discontinuous. Preserve original values; label restatements.
+
+Report observed affected/observed eligible counts alongside unknown coverage and population entries/exits. Even comparable trends require [verified closure](../rbvm-verified-closure/SKILL.md) before claiming fixes. [Worked counterexamples](measurement-epochs.md) distinguish classifier migration, missingness, and genuine within-cohort change. These are evidence-analysis rules, not authorization to scan or remediate.
 
 ## Pitfalls
 
