@@ -1,6 +1,6 @@
 ---
 name: rbvm-verified-closure
-description: Use when a vulnerability ticket, patch PR, or deployment is marked complete but closure needs proof that affected running assets changed and fresh evidence covers the original finding, or prior closure may have regressed.
+description: Use when a vulnerability ticket, patch PR, deployment, or key-access revocation is marked complete but affected running assets, cached key holders, or prior closure may still expose the original risk.
 ---
 
 # Verified Closure
@@ -21,7 +21,7 @@ Closure joins the original affected population, deployed state, and successful v
 
 1. Freeze baseline population and timestamps; reconcile inventory changes instead of silently shrinking the denominator.
 2. Join rollout to immutable artifact identity. For multi-platform images, map the approved index to the running platform manifest; do not compare unlike digests.
-3. Verify runtime after activation. For certificate-policy changes, use [TLS trust-path verification](../tls-trust-path-verification/SKILL.md), not another client's result. A fresh image scan may combine with fresh runtime-digest evidence; identical images need not be rescanned. Host/runtime changes need live evidence.
+3. Verify runtime after activation. Use [TLS trust-path verification](../tls-trust-path-verification/SKILL.md) for certificate policies and [key-access closure](KEY-ACCESS.md) for retained data keys: denying new acquisition does not revoke already-loaded capabilities. A fresh image scan may combine with fresh runtime-digest evidence; identical images need not be rescanned. Host/runtime changes need live evidence.
 4. Compare baseline detection scope: credentials, ecosystem, paths, severity, suppressions, database freshness, and scan errors. Missing findings count only after relevant checks succeed.
 5. Record disposition separately: fixed, mitigated, accepted-risk, false-positive, decommissioned, or verification-pending. Keep exceptions visible in `rbvm-risk-exceptions`.
 6. Monitor each asset's deployed artifact/version and relied-on mitigations at a risk-tiered local cadence. Rollback, vulnerable backup restore, factory reset, patch removal, or mitigation loss can reintroduce exposure. If monitoring is stale, missing, or inconclusive, mark unknown/verification-pending and investigate; infer neither clean status nor regression. Reopen as regression only when current evidence confirms the original exposure; then retain the original denominator, recompute priority/exceptions, and require fresh closure evidence.
