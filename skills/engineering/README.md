@@ -4,6 +4,8 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 ## Skills
 
+- **[signed-division-contracts](signed-division-contracts/SKILL.md)** - validate widened reciprocal division against signed rounding and overflow boundaries; compare compiler baselines before adopting a target-specific optimization. See [sources and isolated validation](signed-division-contracts/SOURCES.md).
+
 - **[proton-drive-selective-backup](proton-drive-selective-backup/SKILL.md)** - plan filtered backups without discarding unverified Git work; separate Mole inventory, Proton transfer and restore evidence. Includes a read-only planner and [validation limits](proton-drive-selective-backup/SOURCES.md).
 
 - **[minimal-sufficient-evidence](minimal-sufficient-evidence/SKILL.md)** - remove redundant tests and artifacts while preserving the smallest evidence set needed for debugging, regression coverage, metrics, templates, models, and root-cause analysis.
