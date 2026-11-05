@@ -1,6 +1,6 @@
 ---
 name: sales-value-negotiation
-description: Use when a B2B buyer requests concessions, a proposal stalls on commercial terms, or several issues permit tradeoffs.
+description: Use when a B2B buyer requests concessions, a proposal stalls on commercial terms, several issues permit tradeoffs, or forecasts disagree about a measurable future outcome.
 ---
 
 # Sales Value Negotiation
@@ -25,6 +25,12 @@ Negotiate the whole package against realistic alternatives. Scope, delivery, pay
 5. Make concessions explicit and, where appropriate, conditional on reciprocal changes. Recalculate the entire revised package against the minimum; escalate anything outside authority. Record tentative versus approved terms.
 
 Illustrative arithmetic: a $30,000 project with $10,000 delivery cost and a reduced-scope $27,000 project with $7,000 cost contribute $20,000 each before overhead. They are not equivalent if payment timing, liability, or delivery risk differs. Do not promise identical outcomes without evidence.
+
+## When forecasts disagree
+
+A contingent package can price separate outcomes without forcing agreement on their probability. First test shared measurement, hidden information, incentives, settlement costs, and each side's worst-case exposure. Expected value cannot override a hard budget or margin floor. Missing or disputed evidence is not a failed outcome. Refusal to accept variable terms does not prove dishonesty.
+
+Use [contingent package checks](CONTINGENT-PACKAGES.md) for an original payoff example and rejection cases; [sources and validation limits](SOURCES.md) separate practitioner guidance from arithmetic proof.
 
 ## Sources
 
