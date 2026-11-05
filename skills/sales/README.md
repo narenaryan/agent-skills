@@ -6,7 +6,7 @@ Evidence-led B2B qualification, buyer-owned decision plans, controlled commercia
 
 - **[sales-discovery-qualification](sales-discovery-qualification/SKILL.md)** - evaluate discovery evidence, selectively revalidate changed buying decisions, and identify buyer-agreed next steps.
 - **[sales-mutual-action-plans](sales-mutual-action-plans/SKILL.md)** - map stakeholder roles, approval dependencies, and buyer-owned milestones through realization of value.
-- **[sales-value-negotiation](sales-value-negotiation/SKILL.md)** - prepare multi-issue commercial packages, defensible alternatives, and controlled concessions.
+- **[sales-value-negotiation](sales-value-negotiation/SKILL.md)** - prepare multi-issue commercial packages, defensible alternatives, controlled concessions, and [contingent-outcome checks](sales-value-negotiation/CONTINGENT-PACKAGES.md) without treating expected value as approval.
 - **[sales-pipeline-forecast-calibration](sales-pipeline-forecast-calibration/SKILL.md)** - define a forecast horizon, check cohort calibration, and keep unsupported odds out of the pipeline.
 
 ## Install
