@@ -1,6 +1,6 @@
 ---
 name: patch-reproducer-validity
-description: Use when a bug fix passes its reproducer, a patch may break working behavior, or a review must distinguish introduced regressions from incomplete fixes, pre-existing defects, and incomparable runs.
+description: Use when a bug fix passes its reproducer, a patch may break working behavior, or a backport or review must distinguish introduced regressions from incomplete fixes, pre-existing defects, and incomparable runs.
 ---
 
 # Validate Patch Reproducers
@@ -27,6 +27,8 @@ Interpret each case against an independent contract, not merely differences in o
 4. Separately probe behaviors affected by the diff: boundary inputs, error handling, callers, and security protections. For a new-regression claim, show baseline success and candidate failure through the same meaningful interface. Where practical, revert the implicated change in isolation and replay; unrelated dependency or fixture changes otherwise confound attribution.
 5. Challenge the repaired condition with a narrow mutant; a survivor may expose a weak oracle, but equivalent or unobservable mutants are not automatically missing tests. For concurrent/timing failures, control schedule or clock where supported; a seed alone does not fix interleavings. Mixed outcomes remain inconclusive, not “retry until green.”
 6. Retain regression tests and run relevant surrounding tests; report repaired cases, introduced regressions, unresolved defects, and verification gaps separately. Keep pre-existing defects visible without blaming this patch. Evidence does not authorize rollout or close an RBVM finding; those require their own gates.
+
+For backports across refactored code, use [target-site coverage](BACKPORT-COVERAGE.md): map every old implementation and cleanup obligation before accepting upstream-only tests or clean application.
 
 ## Worked example
 
