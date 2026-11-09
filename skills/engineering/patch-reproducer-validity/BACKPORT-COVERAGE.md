@@ -31,7 +31,7 @@ The isolated model's contract rejects payloads longer than eight bytes with no e
 
 Upstream validates before acquisition, so its early return needs no release. The target acquires first. An oracle checking only rejection misses the copied return's resource defect. The complete adaptation covers both sites and balances acquisition/release; valid payloads remain unchanged. These variants demonstrate separate obligations, not a real parser vulnerability or actual kernel backport.
 
-Run from this directory:
+From the directory containing this document (repository or copied package), run:
 
 ```sh
 python3 check_backport.py
@@ -42,4 +42,7 @@ python3 -O check_backport.py
 
 Keep the site map, dependency dispositions, adaptations, target build/configuration, paired outputs and remaining unknowns together. For Linux stable work, consult its submission rules for upstream provenance, prerequisites, adaptations and newer supported branches. This does not authorize submission or disclosure.
 
-Use [applicability](../../security/rbvm-applicability/SKILL.md) for whether the deployed vendor artifact is affected, [guarded remediation](../../security/rbvm-guarded-remediation/SKILL.md) for execution approval, and [verified closure](../../security/rbvm-verified-closure/SKILL.md) for fresh deployed evidence. Local validation closes none of those gates. See [sources and limits](SOURCES.md).
+Use [applicability](https://github.com/narenaryan/agent-skills/blob/main/skills/security/rbvm-applicability/SKILL.md) for whether the deployed vendor artifact is affected, [guarded remediation](https://github.com/narenaryan/agent-skills/blob/main/skills/security/rbvm-guarded-remediation/SKILL.md) for execution approval, and [verified closure](https://github.com/narenaryan/agent-skills/blob/main/skills/security/rbvm-verified-closure/SKILL.md) for fresh deployed evidence. Local validation closes none of those gates. See [sources and limits](SOURCES.md).
+
+
+Cross-skill links open repository sources; those skills need not be installed beside this package. Local companion links stay within this directory.

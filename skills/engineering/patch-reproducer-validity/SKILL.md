@@ -34,7 +34,7 @@ For backports across refactored code, use [target-site coverage](BACKPORT-COVERA
 
 Synthetic positional pagination promises `[11, 12]` for offset 10, limit 2, and `[]` for limit 0. A patch repairs `[11]` to `[11, 12]` but removes the zero-limit guard and returns `[11]`. The target fix passes while a distinct regression is proven. `bool(result)` misses the original defect.
 
-Run the original isolated cases: `python3 skills/engineering/patch-reproducer-validity/reproduce.py`. [Sources and limits](SOURCES.md) distinguish local model evidence from project validation.
+From the repository root, run: `python3 skills/engineering/patch-reproducer-validity/reproduce.py`. [Sources and limits](SOURCES.md) distinguish local model evidence from project validation.
 
 ## Pitfalls
 
