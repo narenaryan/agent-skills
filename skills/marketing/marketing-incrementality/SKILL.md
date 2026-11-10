@@ -1,6 +1,6 @@
 ---
 name: marketing-incrementality
-description: Use when attributed ROAS drives budget decisions, campaign holdout lift is disputed, experiment groups diverge after logging, joins, filters, or exposure-based segmentation, or noisy holdouts invite CUPED adjustment.
+description: Use when attributed ROAS drives budget decisions, campaign holdout lift is disputed, experiment groups diverge after logging, joins, filters, or exposure-based segmentation, noisy holdouts invite CUPED adjustment, or aggregate rates disagree with average user rates.
 ---
 
 # Marketing Incrementality
@@ -36,6 +36,8 @@ After cohort checks pass, consider [covariate adjustment](CUPED.md). Use treatme
 ## Arithmetic check
 
 600 versus 500 purchasers in groups of 10,000 imply +1 percentage point, +20% relative, and 100 incremental treatment purchasers; $5,000 additional spend implies $50 each. Unequal groups require rates and population scaling. Estimates alone establish neither significance nor profitability.
+
+For repeated-event rates, use [ratio metrics](RATIO-METRICS.md) to distinguish event-weighted from equal-user targets and preserve assignment-unit covariance. This is separate from CUPED; do not combine their variance formulas.
 
 Incremental ROAS = incremental revenue / incremental spend; near-zero denominators make ratios unstable.
 
