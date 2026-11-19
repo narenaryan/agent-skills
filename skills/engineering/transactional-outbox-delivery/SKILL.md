@@ -1,33 +1,38 @@
 ---
 name: transactional-outbox-delivery
-description: Use when a database-backed service needs polling-versus-CDC choices, duplicate-safe consumers, or per-aggregate delivery order
+description: Use when choosing polling versus CDC, preserving per-aggregate order, or diagnosing duplicate effects after broker redelivery, lost remote acknowledgments, or expired idempotency keys
 ---
 
 # Transactional Outbox Delivery
 
-Commit domain state and its event record in one local database transaction. The broker is outside; expect replay. Transport “exactly once” does not ensure one business effect.
+Commit domain state and its event record in one local transaction. The broker and remote API are outside that transaction; replay does not imply one business effect.
 
 ## Producer and relay
 
-1. In one transaction, update the domain row and insert an immutable event row; rollback must leave neither visible. Include stable event ID, aggregate type/ID, event type, and payload. If order matters, allocate the per-aggregate sequence with the aggregate update, not a timestamp.
-2. Polling needs indexed scans, backoff, and safe claims. After its initial snapshot, CDC avoids repeated scans but adds log retention, offsets, snapshots, and connector operations. Debezium PostgreSQL slots retain WAL during outages and can consume disk. Test restart and backlog recovery.
-3. Keep event fields immutable; polling state is separate. A poller advances or deletes only after broker acknowledgement; a crash after broker acknowledgement but before checkpoint duplicates. CDC replays from offsets; retain rows and WAL through connector capture and recovery.
-4. If order matters, use aggregate ID as Kafka key with a stable key-based partitioner and unchanged partition count. Matching keys share a partition; Kafka preserves its append order, not end-to-end order across parallel relays or consumer effects. Enforce next sequence and serialize per aggregate on publish and apply, or reject/retry gaps. IDs and timestamps do not prove commit order.
+1. Write domain state and immutable event together; rollback hides both. Keep polling state separate. Keep stable event ID, aggregate type/ID, event type and payload. Allocate any aggregate sequence with the aggregate update, not a timestamp.
+2. Polling needs indexed scans, backoff and safe claims. CDC substitutes log retention, snapshots, offsets and connector operations. A Debezium PostgreSQL slot can retain WAL during outages. Test backlog recovery.
+3. Advance a polling checkpoint only after broker acknowledgment; a crash after acknowledgment but before checkpoint can duplicate delivery. CDC can replay from offsets. Retain rows and WAL through expected connector recovery.
+4. Key Kafka records by aggregate with a stable partitioner and partition count. Partition append order doesn't serialize parallel relays or consumers. Enforce next sequence on publish and apply, or reject gaps.
 
-Example: order 781 emits `OrderPlaced` as `E`/sequence 14; every retry keeps both values.
+## Apply local effects atomically
 
-## Make consumer dedup atomic
+Insert a unique `(consumer_name, event_id)` marker and apply the effect inside one consumer DB transaction. A lost claim does nothing; failed effects roll back markers. Commit before broker acknowledgment. Retain markers through supported replay; specify broker retention and the authoritative historical archive.
 
-Use a durable unique `(consumer_name, event_id)` key. In one consumer DB transaction, insert the key and apply the effect only if the claim wins; a duplicate is a no-op. Commit DB before Kafka offset commit or other broker ack. If the effect fails, roll back the marker; redelivery after commit is safe. For external effects, an outbox makes dispatch durable; the receiver still needs idempotency or reconciliation.
+## Reconcile remote effects after a lost response
 
-Retain source outbox/WAL through connector recovery. Keep consumer dedup markers at least as long as the maximum supported redelivery/replay horizon; purging sooner can repeat effects. Set broker-topic retention separately for replay/audit; archive IDs and sequences if older replay is promised. Deleting delivered rows removes that replay source; name the authoritative archive and expiry.
+Record operation identity before dispatch: an opaque stable key, provider/account/action scope and frozen request parameters. A DB marker cannot atomically cover the remote mutation. Workflow replay may reuse a recorded result; an unreported activity can retry under its policy.
 
-Sources: [AWS transactional-outbox guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/transactional-outbox.html); [AWS saga guidance](https://docs.aws.amazon.com/prescriptive-guidance/latest/cloud-design-patterns/saga-patterns.html); [Debezium Outbox Event Router](https://debezium.io/documentation/reference/stable/transformations/outbox-event-router.html); [Debezium PostgreSQL connector](https://debezium.io/documentation/reference/stable/connectors/postgresql.html); [Kafka 4.2 design docs](https://kafka.apache.org/42/documentation/).
+| Evidence | Decision |
+|---|---|
+| Outcome unknown, documented receiver dedup still guaranteed at arrival | Retry the identical scoped request with the same key. Start the window at earliest possible acceptance, not the timeout. Include delivery delay, SDK retries and clock uncertainty; stop if unbounded. |
+| Expired/unknown key guarantee, no receiver dedup, or parameters changed | Stop automatic writes. Query the authoritative provider operation/resource by stable reference; confirm identity, scope, parameters and final outcome. |
+| No match or ambiguous status | Keep unresolved without terminal proof tied to this operation: no effect occurred and no prior attempt can still commit. Absence alone is neither proof. |
+
+Example: a remote fulfillment commits, but the acknowledgment is lost. Replay the recorded intent within its safe window or reconcile without writing. [Offline fixture](examples/test_external_retry.py); [sources and validation limits](SOURCES.md).
 
 ## Pitfalls
 
-- A polling relay that marks or deletes before broker acknowledgement can lose an event on crash.
-- A dedup marker committed apart from the business effect still permits a duplicate effect after a crash.
-- Kafka partition order is not end-to-end order if relay or consumer work is parallelized.
-- Purging rows before the supported recovery horizon makes older events unreplayable.
-- The outbox covers one service’s state and event record, not a multi-service transaction; if coordinated recovery is required, model a saga with explicit retries and compensation.
+- Marking an event sent before broker acknowledgment can lose it; marking a remote operation complete before receipt can conceal a failed action.
+- Minting a new key on a timeout or reusing an expired key can create another effect.
+- Multi-service recovery needs coordination or compensation, not just an outbox.
+- A provider may replay a cached error; neither an error nor an empty listing proves no effect. Check the endpoint's version-specific contract.
