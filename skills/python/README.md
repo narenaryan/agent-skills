@@ -4,6 +4,8 @@ Advanced Python runtime and language semantics distilled into focused skills for
 
 ## Skills
 
+- **[python-time-contracts](python-time-contracts/SKILL.md)** - preserve instant identity through folds, distinguish wall arithmetic from elapsed time, and resolve missing or ambiguous local input.
+
 - **[python-scaling-regression-tests](python-scaling-regression-tests/SKILL.md)** - empirical growth-bound tests, meaningful input-size metrics, measurement isolation, and calibration with a deliberately slower implementation.
 - **[python-descriptors-mro](python-descriptors-mro/SKILL.md)** - attribute lookup rules, descriptor precedence, `__set_name__`, `__slots__`, C3 linearization, and `super()` behavior in multiple inheritance.
 - **[python-logging-cookbook](python-logging-cookbook/SKILL.md)** - production logging patterns with handler routing, `QueueHandler`/`QueueListener`, multiprocessing-safe aggregation, contextual fields, and `dictConfig` updates.
