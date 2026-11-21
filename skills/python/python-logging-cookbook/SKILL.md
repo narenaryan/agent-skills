@@ -1,15 +1,16 @@
 ---
 name: python-logging-cookbook
-description: Use when configuring Python logging beyond basicConfig — non-blocking handlers for latency-sensitive paths, multi-process log aggregation, propagation control, injecting contextual attributes, dictConfig incremental updates, level routing per handler, or library authors avoiding handler conflicts; covers QueueHandler/QueueListener, SocketHandler, LoggerAdapter vs Filter, contextvars, NullHandler for libraries
+description: Use when Python log records disappear under queue pressure, QueueListener shutdown fails, sink levels are ignored, exceptions lose structured fields, or configuring handler routing, multiprocessing aggregation, contextual fields and incremental dictConfig.
 ---
 
 # Python Logging Cookbook
 
-A `LogRecord` propagates up the logger hierarchy (unless `propagate=False`). Each handler gates by its own level + filters; the logger's level is only an initial cutoff.
+Propagation bypasses ancestor logger levels/filters, not handler thresholds. Queue admission, handler completion, and durable delivery are different boundaries.
 
 ## Handler routing with level caps
 
 ```python
+import logging
 logger = logging.getLogger('app'); logger.setLevel(logging.DEBUG)
 fh = logging.FileHandler('debug.log');   fh.setLevel(logging.DEBUG)
 ch = logging.StreamHandler();            ch.setLevel(logging.ERROR)
@@ -23,22 +24,37 @@ logger.addHandler(fh); logger.addHandler(ch)
 
 ## QueueHandler + QueueListener (non-blocking)
 
-Park slow handlers (SMTP, Socket, rotating-file under contention) behind a queue:
+Offload sink I/O, not producer formatting. Queuing is not delivery:
 
 ```python
+import logging
 from logging.handlers import QueueHandler, QueueListener
 from queue import Queue
-que = Queue(-1)
-logging.getLogger().addHandler(QueueHandler(que))
-with QueueListener(que, slow_handler, respect_handler_level=True):
-    run_app()             # Py3.14+: context manager auto-starts/stops
+que = Queue()  # unbounded: choose overflow policy before production
+logger = logging.getLogger("demo")
+logger.setLevel(logging.INFO)
+logger.propagate = False
+logger.addHandler(QueueHandler(que))
+listener = QueueListener(que, logging.StreamHandler(), respect_handler_level=True)
+listener.start()
+try:
+    logger.info("example")
+finally:
+    listener.stop()  # this example has no concurrent producers
 ```
 
-Before 3.14, call `listener.start()` / `.stop()` manually.
+| Boundary | Contract |
+|----------|----------|
+| Bounded queue full | Default `put_nowait()` fails; `emit()` calls `handleError()`, not caller-visible `queue.Full`. With `raiseExceptions=False`, the record can disappear silently. |
+| Loss accounting | Override `handleError()` to count errors out-of-band. Never report through the same queue. Distinguish full admission from preparation failures. |
+| Listener filtering | `respect_handler_level=False` bypasses sink level thresholds; use `True` when those thresholds matter. |
+| Exception formatting | `prepare()` embeds traceback text in the message but clears queued `exc_info`/`exc_text`; downstream custom exception formatting needs an explicit serialization contract. |
+
+For an owned, single-process FIFO queue with task tracking and healthy, terminating sinks: stop and join every producer, then `que.join()`, then `listener.stop()`. A full queue can reject the stop sentinel; merely checking `empty()` races. Accepted records after the sentinel can remain unread. Neither join nor stop provides a deadline: a hung/failed sink needs separate supervision. A drained queue does not prove durable output or account for dropped records.
 
 ## Multi-process logging
 
-One `FileHandler` per process → interleaved writes corrupt output.
+Separate process handlers cannot coordinate writes or rotation.
 
 | Pattern | When |
 |---------|------|
@@ -52,47 +68,31 @@ One `FileHandler` per process → interleaved writes corrupt output.
 
 | Mechanism | Modifies | Best for |
 |-----------|----------|----------|
-| `LoggerAdapter.process(msg, kwargs)` | prefixes to message | per-call ad-hoc context |
+| `LoggerAdapter.process(msg, kwargs)` | injects extra; override to rewrite message | per-call ad-hoc context |
 | `logging.Filter.filter(record)` | sets `record.X` attributes | structured fields used in `%(X)s` format |
 | `logging.setLogRecordFactory` | every LogRecord globally | universal attributes (pid, hostname) |
-| `contextvars.ContextVar` inside a Filter | async/request-scoped | web handlers, asyncio tasks |
+| `contextvars.ContextVar` inside a Filter | async/request-scoped | producer-side, before queuing |
 
-Return `False` from `Filter.filter` to drop the record entirely.
+Return `False` from `Filter.filter` to drop records.
 
 ## dictConfig: incremental + preserve libraries
 
-```python
-logging.config.dictConfig({
-    'version': 1,
-    'disable_existing_loggers': False,   # keep library loggers alive
-    ...
-})
-
-logging.config.dictConfig({
-    'version': 1,
-    'incremental': True,                 # only update levels/propagate; no new handlers
-    'loggers': {'urllib3': {'level': 'WARNING'}},
-})
-```
-
-`incremental=True` only updates logger levels, handler levels, and propagation — it cannot add/remove handlers or formatters.
+Set `disable_existing_loggers=False` in full `dictConfig` configurations. With `incremental=True`, only levels and propagation are updated; formatters and filters are ignored, and new handlers cannot be created.
 
 ## Library author rules
 
-```python
-# mylib/__init__.py
-logger = logging.getLogger(__name__)
-logger.addHandler(logging.NullHandler())   # avoid "No handlers could be found"
-```
+Attach `NullHandler`; let the application configure output.
 
 Never call `basicConfig`, `StreamHandler`, or `setLevel` in library code — the application owns those decisions.
+
+Evidence and executable failure/remedy probes: [SOURCES.md](SOURCES.md).
 
 ## Pitfalls
 
 - **Double log lines:** a child logger with its own handler still propagates to ancestors. Set `propagate = False` or remove the ancestor handler.
 - **`disable_existing_loggers` defaults to True:** third-party loggers go silent on first `dictConfig`. Set `False` explicitly.
-- **Same file, multiple handlers:** interleaved writes corrupt lines. One handler, attach to multiple loggers.
+- **Same file, multiple handlers:** writes/rotation may conflict; centralize the writer.
 - **Per-connection logger names:** `logging.getLogger(f'app.conn.{id}')` leaks forever — use an Adapter or contextvars.
-- **`FileHandler` opens lazily:** a config error (bad path) surfaces on first log, not at config time.
+- **`FileHandler` defaults to eager open:** only `delay=True` defers opening until emission.
 - **`exc_info=True` outside an except block:** returns `(None, None, None)` — pass the exception explicitly or use `logger.exception()` inside `except`.
-- **`extra=` key collision:** keys like `message`, `asctime`, `levelname` silently drop; record-reserved names cannot be overwritten.
+- **`extra=` key collision:** reserved keys such as `message`, `asctime`, or `levelname` raise `KeyError` when an enabled event creates its record.
