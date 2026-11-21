@@ -4,6 +4,8 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 ## Skills
 
+- **[weekly-status-report](weekly-status-report/SKILL.md)** - turn chat, meeting notes, GitHub, and email into a verified individual work update, ordered by impact and styled like prior reports.
+
 - **[proton-drive-selective-backup](proton-drive-selective-backup/SKILL.md)** - plan filtered backups without discarding unverified Git work; separate Mole inventory, Proton transfer and restore evidence. Includes a read-only planner and [validation limits](proton-drive-selective-backup/SOURCES.md).
 
 - **[minimal-sufficient-evidence](minimal-sufficient-evidence/SKILL.md)** - remove redundant tests and artifacts while preserving the smallest evidence set needed for debugging, regression coverage, metrics, templates, models, and root-cause analysis.
@@ -21,6 +23,7 @@ General engineering judgment for testing, debugging, metrics, documentation, mod
 
 ```bash
 ./install.sh engineering                  # install all
+./install.sh weekly-status-report        # install one
 ./install.sh minimal-sufficient-evidence  # install one
 ./install.sh ai-bug-patterns              # install one
 ./install.sh macos-disk-space-recovery    # install one
