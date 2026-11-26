@@ -28,6 +28,8 @@ Evidence-driven security workflows, from asset identity and applicability to gua
 
 Start with identity and applicability, then prioritize. Guarded remediation and risk exceptions describe alternate dispositions; verified closure requires independent evidence afterward. Security gates prevent new debt; AI evaluation checks proposed automation. Reuse [container-image-patching](container-image-patching/SKILL.md) for the narrow patch recipe and [AI bug patterns](../engineering/ai-bug-patterns/SKILL.md) for implementation review. These skills do not grant permission to change production systems.
 
+For asynchronous closure, see the [closure publication guard](rbvm-verified-closure/CLOSURE-COMMIT.md) for changes between evidence review and recording the disposition.
+
 Each new skill links provenance, worked counterexamples, and offline fixtures. Passing those fixtures is not a production, scanner-engine, Kubernetes, or LLM benchmark result.
 
 ## Install
@@ -37,4 +39,3 @@ Each new skill links provenance, worked counterexamples, and offline fixtures. P
 ./install.sh container-image-patching # install one
 ./install.sh dependency-artifact-integrity # install one
 ```
-
