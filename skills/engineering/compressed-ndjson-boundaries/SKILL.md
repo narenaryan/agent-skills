@@ -1,6 +1,6 @@
 ---
 name: compressed-ndjson-boundaries
-description: Use when compressed NDJSON ingestion loses trailing records, fails at chunk boundaries, grows memory on long lines, or needs safe parallel decompression with simdjson and zstd.
+description: Use when compressed NDJSON ingestion loses trailing records, fails at chunk boundaries, grows memory despite bounded queues, leaks partial output on cancellation, or needs safe parallel decompression with simdjson and zstd.
 ---
 
 # Compressed NDJSON boundaries
@@ -21,7 +21,8 @@ Compression frames, read chunks, and JSON records are different boundaries. Fixe
 1. Set independent caps: compressed input buffer, output chunk, record bytes, zstd window (`ZSTD_DCtx_setParameter(ctx, ZSTD_d_windowLogMax, 20)` limits the window to 1 MiB), total decompressed bytes, workers, and queued chunks. Include parser allocations and application-retained results in the memory budget.
 2. Parse complete lines; preserve split UTF-8 bytes until a complete record exists. Reject an oversized suffix instead of repeatedly doubling storage. At EOF, distinguish a permitted complete unterminated JSONL record from a truncated JSON value.
 3. With simdjson, destroy/exhaust the stream before moving/refilling its buffer. Copy retained strings; document references expire on iterator advancement. On-Demand skips validation of untouched values: fully traverse and validate every scalar and key when whole-document validity matters.
-4. Parallelize independent frames only when the writer guarantees record-aligned boundaries and bounded frame sizes. Check advertised content size before allocation; unknown size requires bounded streaming or rejection. Give each worker its own parser. A generic `.zst` file does not guarantee record alignment.
+4. Apply [admission and failure-lifetime checks](BACKPRESSURE.md) before async fanout: await capacity before pulling more input, not inside one newly spawned task per record. Require successful producer and sink results before publication; a canceled child can leave a task group without raising.
+5. Parallelize independent frames only when the writer guarantees record-aligned boundaries and bounded frame sizes. Check advertised content size before allocation; unknown size requires bounded streaming or rejection. Give each worker its own parser. A generic `.zst` file does not guarantee record alignment.
 
 From repository root:
 
