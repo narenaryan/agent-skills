@@ -1,6 +1,6 @@
 ---
 name: marketing-incrementality
-description: Use when attributed ROAS drives budget decisions, campaign holdout lift is disputed, or experiment groups diverge after logging, joins, filters, or exposure-based segmentation.
+description: Use when attributed ROAS drives budget decisions, campaign holdout lift is disputed, experiment groups diverge after logging, joins, filters, or exposure-based segmentation, noisy holdouts invite CUPED adjustment, or aggregate rates disagree with average user rates.
 ---
 
 # Marketing Incrementality
@@ -29,9 +29,15 @@ For user-level tests, compare distinct assignment-unit counts with the configure
 
 Localize by time and pre-treatment segment. An exposure/click filter can select on treatment effects. Recover retained raw outcomes and reprocess; if missing outcomes prevent valid target-population estimation, fix collection and rerun. Matching counts through arbitrary deletion/reweighting does not recover missing outcomes.
 
+## Reduce noise without changing the target
+
+After cohort checks pass, consider [covariate adjustment](CUPED.md). Use treatment-unaffected history, retain new users, predeclare coefficient fitting and uncertainty, and report raw estimates alongside adjusted ones. A precise estimate can still be biased if treatment changed the covariate. The companion distinguishes fixed coefficients from fitted regression and includes an exhaustive synthetic assignment check.
+
 ## Arithmetic check
 
 600 versus 500 purchasers in groups of 10,000 imply +1 percentage point, +20% relative, and 100 incremental treatment purchasers; $5,000 additional spend implies $50 each. Unequal groups require rates and population scaling. Estimates alone establish neither significance nor profitability.
+
+For repeated-event rates, use [ratio metrics](RATIO-METRICS.md) to distinguish event-weighted from equal-user targets and preserve assignment-unit covariance. This is separate from CUPED; do not combine their variance formulas.
 
 Incremental ROAS = incremental revenue / incremental spend; near-zero denominators make ratios unstable.
 
@@ -43,3 +49,4 @@ Incremental ROAS = incremental revenue / incremental spend; near-zero denominato
 - An SRM alert identifies a symptom, not its cause; user-count thresholds do not transfer to few-cluster geo designs.
 - Repeated fixed-horizon peeking inflates false positives; safety monitoring is not permission to declare an early winner.
 - Non-significance is not zero effect; spillovers and delayed conversions limit interpretation.
+
